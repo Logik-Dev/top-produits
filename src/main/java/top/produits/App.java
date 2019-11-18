@@ -3,12 +3,12 @@
  */
 package top.produits;
 
+import jbdc.Session;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+   
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Session test = new Session();
     }
 }
