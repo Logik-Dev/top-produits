@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS additif;
 
 CREATE TABLE produit(
         id         BigInt NOT NULL ,
-        nom        Varchar(100) UNIQUE NOT NULL ,
+        nom        Varchar(100) NOT NULL ,
         marque     Varchar (80) NOT NULL ,
         nutriscore Char (5) NOT NULL
     ,CONSTRAINT produit_PK PRIMARY KEY (id)

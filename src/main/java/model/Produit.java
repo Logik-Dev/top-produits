@@ -15,7 +15,7 @@ package model;
 		private char nutriscore;
 		
 		
-		public Produit(int id, String nom, String marque, char nutriscore) {
+		public Produit(long id, String nom, String marque, char nutriscore) {
 			this.id = id;
 			this.nom = nom;
 			this.marque = marque;
@@ -27,8 +27,15 @@ package model;
 		public String toString() {
 			return "Produit [id=" + id + ", nom=" + nom + ", marque=" + marque + ", nutriscore=" + nutriscore + "]";
 		}
+		
+		@Override
+		public boolean equals(Object o) {
+		
+		Produit other = (Produit) o;
+		return other.getNom().equalsIgnoreCase(this.nom);
 
-
+		}
+		
 		public long getId() {
 			return id;
 		}
