@@ -3,12 +3,63 @@
  */
 package top.produits;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import jbdc.Requetes;
 import jbdc.Session;
+import model.Additif;
 
 public class App {
    
+	private Session session = new Session();
+	private JSONArray produitsJson;
+	private JSONArray additifsJson;
+	
+	
+	public void recupererAdditifs() throws MalformedURLException, IOException {
+		
+		URL additifsURL = new URL("https://fr.openfoodfacts.org/additives.json");
+		String additifsString = IOUtils.toString(additifsURL, Charset.forName("UTF-8"));
+		this.additifsJson = new JSONObject(additifsString).getJSONArray("tags");
+			
+	}
+	
+	public void sauvegarderAdditifs() throws SQLException {
+		
+		for(Object additifObject : additifsJson) {
+			JSONObject additifJsonObject = (JSONObject) additifObject;
+			String id = additifJsonObject.getString("id");
+			String nom = null;
+			String code = null;
+			
+			if (additifJsonObject.has("name")) {
+				String[] nameArray = additifJsonObject.getString("name").split(" - ");
+				if(nameArray.length > 1) {
+					nom = nameArray[1];
+					code = nameArray[0];
+				}
 
-    public static void main(String[] args) {
-        Session test = new Session();
+			}
+			
+			if(nom != null && code != null) {
+				Additif additif = new Additif(id, nom, code);
+				Requetes.sauvegarderAdditif(session.getConnection(), additif);
+			}
+		}
+	}
+
+    public static void main(String[] args) throws MalformedURLException, IOException, SQLException {
+        App test = new App();
+        test.recupererAdditifs();
+        test.sauvegarderAdditifs();
+     
     }
 }
