@@ -123,6 +123,25 @@ public class Requetes {
 		return produits;
 	}
 	
+	public static List<Produit> rechercherProduitsParNombreDefini(Connection connection, int nombre) throws SQLException{
+		String requete = "SELECT * FROM produit LIMIT ?";
+		PreparedStatement statement = connection.prepareStatement(requete);
+		
+		statement.setInt(1, nombre);
+
+		List<Produit> produits = new ArrayList<Produit>();
+		ResultSet result = statement.executeQuery();
+
+		while (result.next()) {
+			long id = result.getLong("id");
+			String name = result.getString("nom");
+			String marque = result.getString("marque");
+			char score = result.getString("nutriscore").charAt(0);
+			Produit produit = new Produit(id, name, marque, score);
+			produits.add(produit);
+		}
+		return produits;
+	}
 	
 	
 	

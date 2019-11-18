@@ -106,6 +106,15 @@ public class App {
 
 	}
 	
+	public void afficheNombreDefiniDeProduit(int nombre) throws SQLException {
+		List<Produit> produitList = Requetes.rechercherProduitsParNombreDefini(session.getConnection(), nombre);
+		for(Produit produit: produitList) {
+			System.out.println(produit.getNom());
+		}
+	}
+	
+	
+	
 	public void afficheProduitParNutriscore(char nutriscore) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParNutriscore(session.getConnection(), nutriscore);
 		for(Produit produit: produitList) {
@@ -126,6 +135,8 @@ public class App {
 			System.out.println(produit.getNom());
 		}
 	}
+	
+	
 
 	public static void main(String[] args) throws MalformedURLException, IOException, SQLException {
 		
@@ -137,6 +148,7 @@ public class App {
 //		test.afficheProduitParNutriscore('e');
 //		test.afficheProduitParNom("aux");
 //		test.afficheProduitParAdditif("E579");
+//		test.afficheNombreDefiniDeProduit(1);
 
 	}
 }
