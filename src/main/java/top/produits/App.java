@@ -28,6 +28,7 @@ public class App {
 
 	public void recupererAdditifs() throws MalformedURLException, IOException {
 
+		
 		URL additifsURL = new URL("https://fr.openfoodfacts.org/additives.json");
 		String additifsString = IOUtils.toString(additifsURL, Charset.forName("UTF-8"));
 		this.additifsJson = new JSONObject(additifsString).getJSONArray("tags");
@@ -104,13 +105,38 @@ public class App {
 		}
 
 	}
+	
+	public void afficheProduitParNutriscore(char nutriscore) throws SQLException {
+		List<Produit> produitList = Requetes.rechercherProduitsParNutriscore(session.getConnection(), nutriscore);
+		for(Produit produit: produitList) {
+			System.out.println(produit.getNom());
+		}
+	}
+	
+	public void afficheProduitParNom(String nom) throws SQLException {
+		List<Produit> produitList = Requetes.rechercherProduitsParNom(session.getConnection(), nom);
+		for(Produit produit: produitList) {
+			System.out.println(produit.getNom());
+		}
+	}
+	
+	public void afficheProduitParAdditif(String codeAdditif) throws SQLException {
+		List<Produit> produitList = Requetes.rechercherProduitsParAdditif(session.getConnection(), codeAdditif);
+		for(Produit produit: produitList) {
+			System.out.println(produit.getNom());
+		}
+	}
 
 	public static void main(String[] args) throws MalformedURLException, IOException, SQLException {
+		
 		App test = new App();
-		test.recupererAdditifs();
-		test.sauvegarderAdditifs();
-		test.recupererProduits();
-		test.sauvegarderProduits();
+//		test.recupererAdditifs();
+//		test.sauvegarderAdditifs();
+//		test.recupererProduits();
+//		test.sauvegarderProduits();
+//		test.afficheProduitParNutriscore('e');
+//		test.afficheProduitParNom("aux");
+//		test.afficheProduitParAdditif("E579");
 
 	}
 }
