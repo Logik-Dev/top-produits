@@ -136,8 +136,23 @@ public class App {
 		}
 	}
 	
+	public void supprimerProduitParNom(String nom) throws SQLException {
+		
+		Requetes.supprimerProduitParNom(session.getConnection(), nom);
+		
+	}
 	
+	public Produit selectionnerProduitParNom(String nom) throws SQLException {
+		
+		Produit produit = Requetes.selectionnerProduitParNom(session.getConnection(), nom);
+		return produit;
+	}
 
+	public void modifierProduit(Produit produit) throws SQLException {
+		
+		Requetes.modifierProduit(session.getConnection(), produit);
+	}
+	
 	public static void main(String[] args) throws MalformedURLException, IOException, SQLException {
 		
 		App test = new App();
@@ -149,6 +164,10 @@ public class App {
 //		test.afficheProduitParNom("aux");
 //		test.afficheProduitParAdditif("E579");
 //		test.afficheNombreDefiniDeProduit(1);
+//		test.supprimerProduitParNom("compote pomme vanille");
+		Produit produit = test.selectionnerProduitParNom("confiture extra fraises");
+		produit.setMarque("Nutella");
+		test.modifierProduit(produit);
 
 	}
 }

@@ -15,6 +15,10 @@ package model;
 		private char nutriscore;
 		
 		
+		public Produit(){
+			
+		}
+		
 		public Produit(long id, String nom, String marque, char nutriscore) {
 			this.id = id;
 			this.nom = nom;
