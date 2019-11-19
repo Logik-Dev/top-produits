@@ -29,7 +29,6 @@ package model;
 
 		@Override
 		public String toString() {
-			
 			return "Produit [id=" + id + ", nom=" + nom + ", marque=" + marque + ", nutriscore=" + nutriscore + "]";
 		}
 		
