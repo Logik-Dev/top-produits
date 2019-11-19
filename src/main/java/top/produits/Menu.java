@@ -3,11 +3,10 @@ package top.produits;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
 import model.Produit;
 
 public class Menu {
-
+	
 	Scanner entree = new Scanner(System.in); 
 	App app = new App();
 
@@ -79,10 +78,11 @@ public class Menu {
 			
 			}while(choixNumero < 1 || choixNumero > produits.size());
 			
+			entree.nextLine();
 			Produit produit = produits.get(choixNumero - 1);
 			System.out.println(produit);
 			
-			if(confirmation("Editez le produit")) {
+			if(confirmation("\nVoulez vous suprrimer ou modifier le produit")) {
 				menuEdition(produit);
 			}
 			else {
@@ -97,7 +97,7 @@ public class Menu {
 		
 	}
 	
-	public void menuEdition(Produit produit) {
+	public void menuEdition(Produit produit) throws SQLException {
 
 		int choixNum = 0;
 		do {
@@ -122,10 +122,29 @@ public class Menu {
 			
 			System.out.println("Entrez une marque (Entrer pour ignorer):");
 			valeur = entree.nextLine();
+			if(!valeur.isEmpty()) {
+				produit.setMarque(valeur);
+			}
+			valeur = "z";
+			while(!valeur.matches("[a-eA-E]") && !valeur.isEmpty()) {
+				System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
+				valeur = entree.nextLine();
+			}
+			if(!valeur.isEmpty()) {
+				produit.setNutriscore(valeur.charAt(0));
+			}
 			
+			System.out.println(produit + "\n");
+	        app.modifierProduit(produit);
+	        System.out.println("Produit modifié");
+			afficheMenuPrincipal();
 			
 		}
-		
+		else {
+			app.supprimerProduitParNom(produit.getNom());
+			System.out.println("Produit supprimé");
+			afficheMenuPrincipal();
+		}
 	}
 	
 	public static void main(String[] args) throws SQLException {
