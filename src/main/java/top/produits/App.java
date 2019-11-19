@@ -157,11 +157,15 @@ public class App {
 		}
 	}
 
-	public void afficheProduitParNom(String nom) throws SQLException {
+	public List<Produit> afficheProduitParNom(String nom) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParNom(session.getConnection(), nom);
+		int count=1;
 		for (Produit produit : produitList) {
-			System.out.println(produit.getNom());
+			
+			System.out.println(count + ". " + produit.getNom());
+			count++;
 		}
+		return produitList;
 	}
 
 	public void afficheProduitParAdditif(String codeAdditif) throws SQLException {
