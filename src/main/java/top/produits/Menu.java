@@ -6,20 +6,37 @@ import java.util.Scanner;
 import model.Produit;
 
 public class Menu {
-	
-	Scanner entree = new Scanner(System.in); 
+
+	Scanner entree = new Scanner(System.in);
 	App app = new App();
 
-	
 	public boolean confirmation(String message) {
 		String choix = "";
-		while(!choix.equalsIgnoreCase("O") && !choix.equalsIgnoreCase("N")) {
+		while (!choix.equalsIgnoreCase("O") && !choix.equalsIgnoreCase("N")) {
 			System.out.println(message + " O/N");
 			choix = entree.nextLine();
 		}
 		return choix.equalsIgnoreCase("O") ? true : false;
 	}
-	
+
+	public int choixNumeroMenu(int max) {
+		int choix = 0;
+		do {
+			System.out.println("Entrez votre choix :");
+
+			while (!entree.hasNextInt()) {
+				System.out.println("Merci d'entrer un chiffre entre 1 et " + max);
+				entree.hasNext();
+			}
+
+			choix = entree.nextInt();
+
+		} while (choix < 1 || choix > max);
+
+		entree.nextLine();
+		return choix;
+	}
+
 	public void afficheMenuPrincipal() throws SQLException {
 
 		System.out.println(
@@ -30,129 +47,91 @@ public class Menu {
 		System.out.println("Menu :\n" + "1. Recherche par nom\n" + "2. Recherche par nutriscore\n"
 				+ "3. Recherche par additif\n" + "4. Afficher le Top Produit\n");
 
-		int choix = 0;
-		do {
-			System.out.println("Entrez votre choix :");
+		int choix = choixNumeroMenu(4);
 
-			while (!entree.hasNextInt()) {
-				System.out.println("Veuillez choisir un nombre entre 1 et 4");
-				entree.next();
-			}
-
-			choix = entree.nextInt();
-            
-		} while (choix < 1 || choix > 4);
-		
 		switch (choix) {
-		
-		case 1 :
+
+		case 1:
 			menuRechercheProduit();
 			break;
-			
-		case 2 :
-			
+
+		case 2:
+
 		}
 
 	}
 
 	public void menuRechercheProduit() throws SQLException {
-		
+
 		String choix = "";
 		entree.nextLine();
 		System.out.println("Veuillez saisir un nom de produit:");
 		choix = entree.nextLine();
-		
-		List<Produit> produits = app.afficheProduitParNom(choix);
-		
 
-		if(confirmation("Voulez vous consulter la fiche produit")) {
-			int choixNumero = 0;
-			do {
-				System.out.println("Veuillez saisir le numéro du produit.");
-				
-				while(!entree.hasNextInt()) {
-					System.out.println("Merci d'entrer un chiffre entre 1 et "+ produits.size());
-					entree.next();
-				}
-				choixNumero = entree.nextInt();
-			
-			}while(choixNumero < 1 || choixNumero > produits.size());
-			
-			entree.nextLine();
+		List<Produit> produits = app.afficheProduitParNom(choix);
+
+		if (confirmation("Voulez vous consulter la fiche produit")) {
+
+			int choixNumero = choixNumeroMenu(produits.size());
+
 			Produit produit = produits.get(choixNumero - 1);
 			System.out.println(produit);
-			
-			if(confirmation("\nVoulez vous suprrimer ou modifier le produit")) {
+
+			if (confirmation("\nVoulez vous suprrimer ou modifier le produit")) {
 				menuEdition(produit);
-			}
-			else {
+			} else {
 				afficheMenuPrincipal();
 			}
-			
-		}
-		else {
+
+		} else {
 			afficheMenuPrincipal();
 		}
-		
-		
-	}
-	
-	public void menuEdition(Produit produit) throws SQLException {
 
-		int choixNum = 0;
-		do {
-			System.out.println("1. Modification\n2. Suppresion");
-			
-			while(!entree.hasNextInt()) {
-				System.out.println("Merci d'entrer un chiffre entre 1 et 2");
-				entree.next();
-			}
-			choixNum = entree.nextInt();
-			entree.nextLine();
-			
-		}while(choixNum < 1 || choixNum > 2);
-		
-		if(choixNum == 1) {
+	}
+
+	public void menuEdition(Produit produit) throws SQLException {
+		System.out.println("1. Modification\n2. Suppresion");
+
+		int choixNum = choixNumeroMenu(2);
+
+		if (choixNum == 1) {
 			String valeur = "";
 			System.out.println("Entrez un nom (Entrer pour ignorer):");
 			valeur = entree.nextLine();
-			if(!valeur.isEmpty()) {
+			if (!valeur.isEmpty()) {
 				produit.setNom(valeur);
 			}
-			
+
 			System.out.println("Entrez une marque (Entrer pour ignorer):");
 			valeur = entree.nextLine();
-			if(!valeur.isEmpty()) {
+			if (!valeur.isEmpty()) {
 				produit.setMarque(valeur);
 			}
 			valeur = "z";
-			while(!valeur.matches("[a-eA-E]") && !valeur.isEmpty()) {
+			while (!valeur.matches("[a-eA-E]") && !valeur.isEmpty()) {
 				System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
 				valeur = entree.nextLine();
 			}
-			if(!valeur.isEmpty()) {
+			if (!valeur.isEmpty()) {
 				produit.setNutriscore(valeur.charAt(0));
 			}
-			
+
 			System.out.println(produit + "\n");
-	        app.modifierProduit(produit);
-	        System.out.println("Produit modifié");
+			app.modifierProduit(produit);
+			System.out.println("Produit modifié");
 			afficheMenuPrincipal();
-			
-		}
-		else {
+
+		} else {
 			app.supprimerProduitParNom(produit.getNom());
 			System.out.println("Produit supprimé");
 			afficheMenuPrincipal();
 		}
 	}
-	
+
 	public static void main(String[] args) throws SQLException {
-		
+
 		Menu test = new Menu();
 		test.afficheMenuPrincipal();
-		
+
 	}
 }
-
-
