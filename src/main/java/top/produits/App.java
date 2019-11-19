@@ -71,7 +71,7 @@ public class App {
 
 	}
 
-	public void afficherProduitsParNomJson() throws JSONException, SQLException {
+	public JSONArray afficherProduitsParNomJson() throws JSONException, SQLException {
 
 		JSONArray listeFiltree = new JSONArray();
 
@@ -94,6 +94,7 @@ public class App {
 			count++;
 		}
 		this.produitsParNomJson = listeFiltree;
+		return listeFiltree;
 	}
 
 	public void recupererTopProduitsAPI() throws IOException {
