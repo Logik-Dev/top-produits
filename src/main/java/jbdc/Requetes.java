@@ -11,6 +11,8 @@ import model.Additif;
 import model.Produit;
 
 public class Requetes {
+	
+	// REQUETES CREATE
 
 	public static void sauvegarderAdditif(Connection connection, Additif additif) throws SQLException {
 
@@ -53,6 +55,9 @@ public class Requetes {
 		statement.close();
 
 	}
+
+	
+	// REQUETES READ
 
 	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, char nutriscore)
 			throws SQLException {
@@ -145,26 +150,6 @@ public class Requetes {
 		return produits;
 	}
 
-	public static Produit selectionnerProduitParNom(Connection connection, String nom) throws SQLException {
-		
-		String requete = "SELECT * FROM produit WHERE nom = ?";
-		PreparedStatement statement = connection.prepareStatement(requete);
-		
-		statement.setString(1, nom);
-		ResultSet result = statement.executeQuery();
-		Produit produit = null;
-		
-		while(result.next()) {
-			produit = new Produit();
-			produit.setId(result.getLong("id"));
-			produit.setNom(result.getString("nom"));
-			produit.setMarque(result.getString("marque"));
-			produit.setNutriscore(result.getString("nutriscore").charAt(0));
-			
-		}
-		return produit;
-	}
-
 	public static long selectionnerIdProduitParNom(Connection connection, String nom) throws SQLException {
 
 		String requete = "SELECT id FROM produit WHERE nom = ?";
@@ -180,6 +165,46 @@ public class Requetes {
 		return id;
 
 	}
+	
+	public static Produit selectionnerProduitParNom(Connection connection, String nom) throws SQLException {
+
+		String requete = "SELECT * FROM produit WHERE nom = ?";
+		PreparedStatement statement = connection.prepareStatement(requete);
+
+		statement.setString(1, nom);
+		ResultSet result = statement.executeQuery();
+		Produit produit = null;
+
+		while (result.next()) {
+			produit = new Produit();
+			produit.setId(result.getLong("id"));
+			produit.setNom(result.getString("nom"));
+			produit.setMarque(result.getString("marque"));
+			produit.setNutriscore(result.getString("nutriscore").charAt(0));
+
+		}
+		return produit;
+	}
+
+	
+	// REQUETE UPDATE
+
+	public static void modifierProduit(Connection connection, Produit produitModifie) throws SQLException {
+
+		String requete = "UPDATE produit SET nom=?, marque=?, nutriscore=? WHERE id=?";
+		PreparedStatement statement = connection.prepareStatement(requete);
+
+		statement.setString(1, produitModifie.getNom());
+		statement.setString(2, produitModifie.getMarque());
+		statement.setString(3, String.valueOf(produitModifie.getNutriscore()).toUpperCase());
+		statement.setLong(4, produitModifie.getId());
+
+		statement.execute();
+		statement.close();
+	}
+
+	
+	// REQUETE DELETE
 
 	public static void supprimerProduitParNom(Connection connection, String nom) throws SQLException {
 
@@ -206,17 +231,4 @@ public class Requetes {
 
 	}
 
-	public static void modifierProduit(Connection connection,Produit produitModifie) throws SQLException {
-		
-		String requete = "UPDATE produit SET nom=?, marque=?, nutriscore=? WHERE id=?";
-		PreparedStatement statement = connection.prepareStatement(requete);
-		
-		statement.setString(1, produitModifie.getNom());
-		statement.setString(2, produitModifie.getMarque());
-		statement.setString(3, String.valueOf(produitModifie.getNutriscore()).toUpperCase());
-		statement.setLong(4, produitModifie.getId());
-		
-		statement.execute();
-		statement.close();
-	}
 }

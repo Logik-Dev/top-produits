@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import jbdc.Requetes;
@@ -23,12 +24,12 @@ import model.Produit;
 public class App {
 
 	private Session session = new Session();
-	private JSONArray produitsJson;
+	private JSONArray topProduitsJson;
+	private JSONArray produitsParNomJson;
 	private JSONArray additifsJson;
 
 	public void recupererAdditifs() throws MalformedURLException, IOException {
 
-		
 		URL additifsURL = new URL("https://fr.openfoodfacts.org/additives.json");
 		String additifsString = IOUtils.toString(additifsURL, Charset.forName("UTF-8"));
 		this.additifsJson = new JSONObject(additifsString).getJSONArray("tags");
@@ -59,12 +60,48 @@ public class App {
 		}
 	}
 
-	public void recupererProduits() throws IOException {
+	public void recupererProduitsParNomAPI(String nom) throws IOException {
+
+		String urlString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + nom
+				+ "&search_simple=1&action=process&json=1&page_size=1000";
+		URL url = new URL(urlString);
+
+		String produitsString = IOUtils.toString(url, Charset.forName("UTF-8"));
+		produitsParNomJson = new JSONObject(produitsString).getJSONArray("products");
+
+	}
+
+	public void afficherProduitsParNomJson() throws JSONException, SQLException {
+
+		JSONArray listeFiltree = new JSONArray();
+
+		for (Object produitObject : produitsParNomJson) {
+			JSONObject produitJsonObject = (JSONObject) produitObject;
+
+			if (produitJsonObject.has("nutriscore_grade") && produitJsonObject.has("product_name_fr")) {
+				String nom = produitJsonObject.getString("product_name_fr");
+
+				if (selectionnerProduitParNom(nom.toLowerCase()) == null && !nom.isEmpty()) {
+					listeFiltree.put(produitJsonObject);
+				}
+			}
+		}
+
+		int count = 1;
+		for (Object produitObject : listeFiltree) {
+			JSONObject produitJsonObject = (JSONObject) produitObject;
+			System.out.println(count + ". " + produitJsonObject.getString("product_name_fr"));
+			count++;
+		}
+		this.produitsParNomJson = listeFiltree;
+	}
+
+	public void recupererTopProduitsAPI() throws IOException {
 
 		URL url = new URL(
 				"https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1&page_size=1000&sort_by=unique_scans_n");
 		String produitsString = IOUtils.toString(url, Charset.forName("UTF-8"));
-		this.produitsJson = new JSONObject(produitsString).getJSONArray("products");
+		this.topProduitsJson = new JSONObject(produitsString).getJSONArray("products");
 
 	}
 
@@ -72,7 +109,7 @@ public class App {
 
 		List<Produit> produitList = new ArrayList<>();
 
-		for (Object produitObject : produitsJson) {
+		for (Object produitObject : topProduitsJson) {
 
 			JSONObject produitJsonObject = (JSONObject) produitObject;
 			long id = produitJsonObject.getLong("_id");
@@ -89,8 +126,8 @@ public class App {
 				Produit produit = new Produit(id, nom, marque, nutriscore);
 
 				if (!produitList.contains(produit)) {
-                    produitList.add(produit);
-                    
+					produitList.add(produit);
+
 					if (!additifsJsonArray.isEmpty()) {
 						Requetes.sauvegarderProduit(session.getConnection(), produit);
 
@@ -105,69 +142,69 @@ public class App {
 		}
 
 	}
-	
+
 	public void afficheNombreDefiniDeProduit(int nombre) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParNombreDefini(session.getConnection(), nombre);
-		for(Produit produit: produitList) {
+		for (Produit produit : produitList) {
 			System.out.println(produit.getNom());
 		}
 	}
-	
-	
-	
+
 	public void afficheProduitParNutriscore(char nutriscore) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParNutriscore(session.getConnection(), nutriscore);
-		for(Produit produit: produitList) {
+		for (Produit produit : produitList) {
 			System.out.println(produit.getNom());
 		}
 	}
-	
+
 	public void afficheProduitParNom(String nom) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParNom(session.getConnection(), nom);
-		for(Produit produit: produitList) {
+		for (Produit produit : produitList) {
 			System.out.println(produit.getNom());
 		}
 	}
-	
+
 	public void afficheProduitParAdditif(String codeAdditif) throws SQLException {
 		List<Produit> produitList = Requetes.rechercherProduitsParAdditif(session.getConnection(), codeAdditif);
-		for(Produit produit: produitList) {
+		for (Produit produit : produitList) {
 			System.out.println(produit.getNom());
 		}
 	}
-	
+
 	public void supprimerProduitParNom(String nom) throws SQLException {
-		
+
 		Requetes.supprimerProduitParNom(session.getConnection(), nom);
-		
+
 	}
-	
+
 	public Produit selectionnerProduitParNom(String nom) throws SQLException {
-		
+
 		Produit produit = Requetes.selectionnerProduitParNom(session.getConnection(), nom);
 		return produit;
 	}
 
 	public void modifierProduit(Produit produit) throws SQLException {
-		
+
 		Requetes.modifierProduit(session.getConnection(), produit);
 	}
-	
+
 	public static void main(String[] args) throws MalformedURLException, IOException, SQLException {
-		
+
 		App test = new App();
 //		test.recupererAdditifs();
 //		test.sauvegarderAdditifs();
-//		test.recupererProduits();
+//		test.recupererTopProduitsAPI();
 //		test.sauvegarderProduits();
 //		test.afficheProduitParNutriscore('e');
 //		test.afficheProduitParNom("aux");
 //		test.afficheProduitParAdditif("E579");
 //		test.afficheNombreDefiniDeProduit(1);
 //		test.supprimerProduitParNom("compote pomme vanille");
-		Produit produit = test.selectionnerProduitParNom("confiture extra fraises");
-		produit.setMarque("Nutella");
-		test.modifierProduit(produit);
+//		Produit produit = test.selectionnerProduitParNom("confiture extra fraises");
+//		produit.setMarque("Nutella");
+//		test.modifierProduit(produit);
+		test.recupererProduitsParNomAPI("kinder");
+		test.afficherProduitsParNomJson();
 
 	}
 }
