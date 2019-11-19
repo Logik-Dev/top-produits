@@ -30,3 +30,6 @@ hs_err_pid
 # gradle
 /bin
 /.gradle/
+
+# parametres.java
+/src/main/java/jdbc/Parametres.java

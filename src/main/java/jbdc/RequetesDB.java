@@ -10,8 +10,8 @@ import java.util.List;
 import model.Additif;
 import model.Produit;
 
-public class Requetes {
-	
+public class RequetesDB {
+
 	// REQUETES CREATE
 
 	public static void sauvegarderAdditif(Connection connection, Additif additif) throws SQLException {
@@ -42,7 +42,7 @@ public class Requetes {
 		statement.close();
 	}
 
-	public static void sauvegarderAdditifProduit(Connection connection, String additifId, long produitId)
+	public static void sauvegarderAdditifsProduit(Connection connection, String additifId, long produitId)
 			throws SQLException {
 
 		String requete = "INSERT INTO additifs_produits VALUES (?,?)";
@@ -56,9 +56,50 @@ public class Requetes {
 
 	}
 
-	
 	// REQUETES READ
 
+	private static List<Produit> extraireListeProduits(Connection connection, ResultSet result) throws SQLException {
+		List<Produit> produits = new ArrayList<>();
+
+		while (result.next()) {
+			long id = result.getLong("id");
+			String nom = result.getString("nom");
+			String marque = result.getString("marque");
+			char score = result.getString("nutriscore").charAt(0);
+			List<String> additifs = obtenirListeAdditifsId(connection, id);
+			Produit produit = new Produit(id, nom, marque, score, additifs);
+			produits.add(produit);
+		}
+
+		return produits;
+	}
+
+	public static List<String> obtenirListeAdditifsId(Connection connection, long idProduit) throws SQLException {
+
+		String requete = "SELECT id_additif FROM additifs_produits WHERE id_produit = ?";
+		PreparedStatement statement = connection.prepareStatement(requete);
+
+		statement.setLong(1, idProduit);
+
+		List<String> additifsIds = new ArrayList<>();
+		ResultSet result = statement.executeQuery();
+
+		while (result.next()) {
+			additifsIds.add(result.getString("id_additif"));
+		}
+
+		return additifsIds;
+	}
+    
+	public static List<Produit> obtenirListeDesProduits(Connection connection) throws SQLException{
+		String requete = "SELECT * FROM produit";
+		PreparedStatement statement = connection.prepareStatement(requete);
+		
+		ResultSet result = statement.executeQuery();
+		
+		return extraireListeProduits(connection, result);
+	}
+	
 	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, char nutriscore)
 			throws SQLException {
 
@@ -66,20 +107,10 @@ public class Requetes {
 		PreparedStatement statement = connection.prepareStatement(requete);
 
 		statement.setString(1, String.valueOf(nutriscore).toUpperCase());
-
-		List<Produit> produits = new ArrayList<>();
 		ResultSet result = statement.executeQuery();
 
-		while (result.next()) {
-			long id = result.getLong("id");
-			String nom = result.getString("nom");
-			String marque = result.getString("marque");
-			char score = result.getString("nutriscore").charAt(0);
-			Produit produit = new Produit(id, nom, marque, score);
-			produits.add(produit);
-		}
+		return extraireListeProduits(connection, result);
 
-		return produits;
 	}
 
 	public static List<Produit> rechercherProduitsParNom(Connection connection, String nom) throws SQLException {
@@ -89,19 +120,10 @@ public class Requetes {
 
 		statement.setString(1, "%" + nom + "%");
 
-		List<Produit> produits = new ArrayList<>();
 		ResultSet result = statement.executeQuery();
 
-		while (result.next()) {
-			long id = result.getLong("id");
-			String name = result.getString("nom");
-			String marque = result.getString("marque");
-			char score = result.getString("nutriscore").charAt(0);
-			Produit produit = new Produit(id, name, marque, score);
-			produits.add(produit);
+		return extraireListeProduits(connection, result);
 
-		}
-		return produits;
 	}
 
 	public static List<Produit> rechercherProduitsParAdditif(Connection connection, String code) throws SQLException {
@@ -112,20 +134,10 @@ public class Requetes {
 		PreparedStatement statement = connection.prepareStatement(requete);
 
 		statement.setString(1, code);
-
-		List<Produit> produits = new ArrayList<Produit>();
 		ResultSet result = statement.executeQuery();
 
-		while (result.next()) {
-			long id = result.getLong("id");
-			String name = result.getString("nom");
-			String marque = result.getString("marque");
-			char score = result.getString("nutriscore").charAt(0);
-			Produit produit = new Produit(id, name, marque, score);
-			produits.add(produit);
+		return extraireListeProduits(connection, result);
 
-		}
-		return produits;
 	}
 
 	public static List<Produit> rechercherProduitsParNombreDefini(Connection connection, int nombre)
@@ -135,37 +147,12 @@ public class Requetes {
 		PreparedStatement statement = connection.prepareStatement(requete);
 
 		statement.setInt(1, nombre);
-
-		List<Produit> produits = new ArrayList<Produit>();
 		ResultSet result = statement.executeQuery();
 
-		while (result.next()) {
-			long id = result.getLong("id");
-			String name = result.getString("nom");
-			String marque = result.getString("marque");
-			char score = result.getString("nutriscore").charAt(0);
-			Produit produit = new Produit(id, name, marque, score);
-			produits.add(produit);
-		}
-		return produits;
-	}
-
-	public static long selectionnerIdProduitParNom(Connection connection, String nom) throws SQLException {
-
-		String requete = "SELECT id FROM produit WHERE nom = ?";
-		PreparedStatement statement = connection.prepareStatement(requete);
-
-		statement.setString(1, nom);
-
-		Long id = null;
-		ResultSet result = statement.executeQuery();
-		while (result.next()) {
-			id = result.getLong("id");
-		}
-		return id;
+		return extraireListeProduits(connection, result);
 
 	}
-	
+
 	public static Produit selectionnerProduitParNom(Connection connection, String nom) throws SQLException {
 
 		String requete = "SELECT * FROM produit WHERE nom = ?";
@@ -176,17 +163,18 @@ public class Requetes {
 		Produit produit = null;
 
 		while (result.next()) {
-			produit = new Produit();
-			produit.setId(result.getLong("id"));
-			produit.setNom(result.getString("nom"));
-			produit.setMarque(result.getString("marque"));
-			produit.setNutriscore(result.getString("nutriscore").charAt(0));
+			long id = result.getLong("id");
+			String name = result.getString("nom");
+			String marque = result.getString("marque");
+			char nutriscore = result.getString("nutriscore").charAt(0);
+			List<String> additifs = obtenirListeAdditifsId(connection, id);
 
+			produit = new Produit(id, name, marque, nutriscore, additifs);
 		}
+		statement.close();
 		return produit;
 	}
 
-	
 	// REQUETE UPDATE
 
 	public static void modifierProduit(Connection connection, Produit produitModifie) throws SQLException {
@@ -203,31 +191,25 @@ public class Requetes {
 		statement.close();
 	}
 
-	
 	// REQUETE DELETE
 
-	public static void supprimerProduitParNom(Connection connection, String nom) throws SQLException {
+	public static void supprimerProduit(Connection connection, Produit produit) throws SQLException {
 
-		Long id = selectionnerIdProduitParNom(connection, nom);
+		String requete = "DELETE FROM additifs_produits WHERE id_produit = ?";
+		PreparedStatement statement = connection.prepareStatement(requete);
 
-		if (id != null) {
-			String requete = "DELETE FROM additifs_produits WHERE id_produit = ?";
-			PreparedStatement statement = connection.prepareStatement(requete);
+		statement.setLong(1, produit.getId());
 
-			statement.setLong(1, id);
+		statement.execute();
+		statement.close();
 
-			statement.execute();
-			statement.close();
+		requete = "DELETE FROM produit WHERE id=?";
+		statement = connection.prepareStatement(requete);
 
-			requete = "DELETE FROM produit WHERE id=?";
-			statement = connection.prepareStatement(requete);
+		statement.setLong(1, produit.getId());
 
-			statement.setLong(1, id);
-
-			statement.execute();
-			statement.close();
-
-		}
+		statement.execute();
+		statement.close();
 
 	}
 

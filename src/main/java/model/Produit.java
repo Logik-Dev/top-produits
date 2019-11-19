@@ -1,7 +1,8 @@
 package model;
 
+import java.util.List;
 
-	/**
+/**
 	 * Une classe pour représenter la table produit.
 	 * 
 	 * @author Elodie, Cedric, Bastien
@@ -13,23 +14,24 @@ package model;
 		private String nom;
 		private String marque;
 		private char nutriscore;
-		
+		private List<String> additifs;
 		
 		public Produit(){
 			
 		}
 		
-		public Produit(long id, String nom, String marque, char nutriscore) {
+		public Produit(long id, String nom, String marque, char nutriscore, List<String> additifs) {
 			
 			this.id = id;
 			this.nom = nom;
 			this.marque = marque;
 			this.nutriscore = nutriscore;
+			this.additifs = additifs;
 		}
 
 		@Override
 		public String toString() {
-			return "Produit [id=" + id + ", nom=" + nom + ", marque=" + marque + ", nutriscore=" + nutriscore + "]";
+			return "\n" + nom.toUpperCase() + "\n- id: " + id + "\n- marque: " + marque + "\n- nutriscore: " + nutriscore + "";
 		}
 		
 		@Override
@@ -72,7 +74,13 @@ package model;
 			this.nutriscore = nutriscore;
 		}
 		
+		public void setAdditifs(List<String> additifs) {
+			this.additifs = additifs;
+		}
 		
+		public List<String> getAdditifs(){
+			return this.additifs;
+		}
 		
 		
 	}
