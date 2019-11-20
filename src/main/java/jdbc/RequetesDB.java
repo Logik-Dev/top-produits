@@ -21,7 +21,6 @@ public class RequetesDB {
 
 	// REQUETES CREATE
 
-	
 /**
  * classe qui permet de sauvegarder les additifs dans la base de donnée.
  * @param connection
@@ -42,6 +41,13 @@ public class RequetesDB {
 
 	}
 
+	
+	/**
+	 * classe qui permet de sauvegarder les produits dans la base de donnée.
+	 * @param connection
+	 * @param produit
+	 * @throws SQLException
+	 */
 	public static void sauvegarderProduit(Connection connection, Produit produit) throws SQLException {
 
 		String requete = "INSERT INTO produit VALUES (?,?,?,?)";
@@ -56,6 +62,14 @@ public class RequetesDB {
 		statement.close();
 	}
 
+	
+	/**
+	 * classe qui permet de sauvegarder les additifs d'un produit dans la base de donnée.
+	 * @param connection
+	 * @param additifId
+	 * @param produitId
+	 * @throws SQLException
+	 */
 	public static void sauvegarderAdditifsProduit(Connection connection, String additifId, long produitId)
 			throws SQLException {
 
@@ -70,8 +84,17 @@ public class RequetesDB {
 
 	}
 
+	
+	
 	// REQUETES READ
 
+	/**
+	 * classe qui permet d'extraire une liste de produit de la base de donnée.
+	 * @param connection
+	 * @param result
+	 * @return produits
+	 * @throws SQLException
+	 */
 	private static List<Produit> extraireListeProduits(Connection connection, ResultSet result) throws SQLException {
 		List<Produit> produits = new ArrayList<>();
 
@@ -88,6 +111,14 @@ public class RequetesDB {
 		return produits;
 	}
 
+	
+	/**
+	 * classe qui permet d'afficher la liste des id des additifs
+	 * @param connection
+	 * @param idProduit
+	 * @return additifsIds
+	 * @throws SQLException
+	 */
 	public static List<String> obtenirListeAdditifsId(Connection connection, long idProduit) throws SQLException {
 
 		String requete = "SELECT id_additif FROM additifs_produits WHERE id_produit = ?";
@@ -104,7 +135,14 @@ public class RequetesDB {
 
 		return additifsIds;
 	}
-    
+	
+	
+    /**
+     * classe qui permet d'afficher la liste des produits
+     * @param connection
+     * @return la méthode extraireListeProduits
+     * @throws SQLException
+     */
 	public static List<Produit> obtenirListeDesProduits(Connection connection) throws SQLException{
 		String requete = "SELECT * FROM produit";
 		PreparedStatement statement = connection.prepareStatement(requete);
@@ -114,6 +152,14 @@ public class RequetesDB {
 		return extraireListeProduits(connection, result);
 	}
 	
+	
+	/**
+	 * classe qui permet d'afficher une liste de produit par nutriscore recherché
+	 * @param connection
+	 * @param nutriscore
+	 * @return extraireListeProduits
+	 * @throws SQLException
+	 */
 	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, char nutriscore)
 			throws SQLException {
 
@@ -127,6 +173,13 @@ public class RequetesDB {
 
 	}
 
+	/**
+	 * classe qui permet d'afficher une liste de produit par nom recherché
+	 * @param connection
+	 * @param nom
+	 * @return extraireListeProduits
+	 * @throws SQLException
+	 */
 	public static List<Produit> rechercherProduitsParNom(Connection connection, String nom) throws SQLException {
 
 		String requete = "SELECT * FROM produit WHERE nom LIKE ?";
@@ -139,7 +192,15 @@ public class RequetesDB {
 		return extraireListeProduits(connection, result);
 
 	}
+	
 
+	/**
+	 * permet d'afficher une liste de produits par additif recherché
+	 * @param connection
+	 * @param code
+	 * @return extraireListeProduits
+	 * @throws SQLException
+	 */
 	public static List<Produit> rechercherProduitsParAdditif(Connection connection, String code) throws SQLException {
 
 		String requete = "SELECT produit.* FROM additif "
@@ -154,6 +215,14 @@ public class RequetesDB {
 
 	}
 
+	
+	/**
+	 * permet d'afficher une liste des produits les plus vendus par nombre défini
+	 * @param connection
+	 * @param nombre
+	 * @return extraireListeProduits
+	 * @throws SQLException
+	 */
 	public static List<Produit> rechercherProduitsParNombreDefini(Connection connection, int nombre)
 			throws SQLException {
 
@@ -166,7 +235,15 @@ public class RequetesDB {
 		return extraireListeProduits(connection, result);
 
 	}
-
+	
+	
+	/**
+	 * permet de selectionner un produit par un nom recherché
+	 * @param connection
+	 * @param nom
+	 * @return produit
+	 * @throws SQLException
+	 */
 	public static Produit selectionnerProduitParNom(Connection connection, String nom) throws SQLException {
 
 		String requete = "SELECT * FROM produit WHERE nom = ?";
@@ -191,6 +268,13 @@ public class RequetesDB {
 
 	// REQUETE UPDATE
 
+	
+	/**
+	 * permet de modifier un produit dans la base de donnée
+	 * @param connection
+	 * @param produitModifie
+	 * @throws SQLException
+	 */
 	public static void modifierProduit(Connection connection, Produit produitModifie) throws SQLException {
 
 		String requete = "UPDATE produit SET nom=?, marque=?, nutriscore=? WHERE id=?";
@@ -207,6 +291,13 @@ public class RequetesDB {
 
 	// REQUETE DELETE
 
+	
+	/**
+	 * permet de supprimer un produit de la base de donnée
+	 * @param connection
+	 * @param produit
+	 * @throws SQLException
+	 */
 	public static void supprimerProduit(Connection connection, Produit produit) throws SQLException {
 
 		String requete = "DELETE FROM additifs_produits WHERE id_produit = ?";
