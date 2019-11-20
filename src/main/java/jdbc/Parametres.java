@@ -8,8 +8,8 @@ package jdbc;
  */
 public class Parametres {
 	
-	private static String user     = "";
-	private static String password = "";
+	private static String user     = "cedric";
+	private static String password = "changeme";
 	private static String url      = "";
 	
 	public static String getUser() {
