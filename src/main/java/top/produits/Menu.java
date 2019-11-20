@@ -150,14 +150,17 @@ public class Menu {
 
 			if (confirmation("Voulez vous faire une recherche étendue")) {
 				produits = RequetesAPI.rechercherProduitsParNom(nom);
-				afficherListeProduits(produits);
-				menuSelection(produits);
 
 				if (produits.size() == 0) {
-					System.out.println("Le produit n'est pas référencé\n\n\n\n");
+					System.out.println("Le produit n'est pas référencé\n");
 					afficherMenuPrincipal();
 				}
+				else {
+					afficherListeProduits(produits);
+					menuSelection(produits);
+				}
 			}
+			afficherMenuPrincipal();
 		}
 	}
 
