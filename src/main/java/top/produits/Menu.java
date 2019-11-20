@@ -27,7 +27,7 @@ public class Menu {
 
 			while (!entree.hasNextInt()) {
 				System.out.println("Merci d'entrer un chiffre entre 1 et " + max);
-				entree.hasNext();
+				entree.next();
 			}
 
 			choix = entree.nextInt();
@@ -186,7 +186,8 @@ public class Menu {
 
 	public void menuSelection(List<Produit> produits) {
 		if (confirmation("\nSéléctionner un produit")) {
-
+			
+		    
 			int choixNumero = choixNumeroMenu(produits.size());
 
 			Produit produit = produits.get(choixNumero - 1);
@@ -241,7 +242,7 @@ public class Menu {
 			afficherMenuPrincipal();
 		}
 	}
-
+    
 	private static void initialiserLesTables() {
 
 		Controller controller = new Controller();
