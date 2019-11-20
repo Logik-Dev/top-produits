@@ -3,11 +3,11 @@ package model;
 import java.util.List;
 
 /**
-	 * Une classe pour représenter la table produit.
-	 * 
-	 * @author Elodie, Cedric, Bastien
-	 *
-	 */
+ * Classe qui représente un produit
+ * 
+ * @author Elodie, Bastien, Cédric
+ *
+ */
 	public class Produit {
 		
 		private long id;

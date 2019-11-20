@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Classe pour représenter un additif
+ * 
+ * @author Elodie,  Bastien, Cédric
+ *
+ */
+
 public class Additif {
 
 	private String id;
@@ -7,7 +14,6 @@ public class Additif {
 	private String code;
 	
 	public Additif(String id, String nom, String code) {
-		super();
 		this.id = id;
 		this.nom = nom;
 		this.code = code;

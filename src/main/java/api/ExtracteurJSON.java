@@ -2,13 +2,16 @@ package api;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import model.Additif;
 import model.Produit;
-
+/**
+ * Transforme le json en objets utilisables
+ * 
+ * @author Elodie, Bastien, Cédric
+ * 
+ */
 public class ExtracteurJSON {
 
 	public static Produit extraireProduit(JSONObject produitJsonObject) {

@@ -3,14 +3,18 @@ package api;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import model.Additif;
 import model.Produit;
 
+/**
+ * Effectue les requètes sur l'API d'OpenFoodFact
+ * 
+ * @author Elodie, Bastien, Cédric
+ *
+ */
 public class RequetesAPI {
 
 	public static List<Additif> obtenirListeAdditifs() {
