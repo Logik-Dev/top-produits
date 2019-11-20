@@ -102,7 +102,7 @@ public class Menu {
 
 		entree.nextLine();
 		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(nombre);
-		afficherListeProduits(produits);
+
 		menuSelection(produits);
 	}
 
@@ -116,18 +116,17 @@ public class Menu {
 	public void menuRechercheNutriscore() {
 
 		String nutriscore = "";
-        System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
+		System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
 		nutriscore = entree.nextLine();
-		
+
 		while (!nutriscore.matches("[a-eA-E]") && !nutriscore.isEmpty()) {
-			
+
 			System.out.println("Veuillez saisir un nutriscore entre A et E");
 			nutriscore = entree.nextLine();
 		}
-		
-		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
-		afficherListeProduits(produits);
 
+		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
+		
 		menuSelection(produits);
 	}
 
@@ -139,7 +138,6 @@ public class Menu {
 		nom = entree.nextLine();
 
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
-		afficherListeProduits(produits);
 
 		if (produits.size() > 0) {
 			menuSelection(produits);
@@ -154,9 +152,7 @@ public class Menu {
 				if (produits.size() == 0) {
 					System.out.println("Le produit n'est pas référencé\n");
 					afficherMenuPrincipal();
-				}
-				else {
-					afficherListeProduits(produits);
+				} else {
 					menuSelection(produits);
 				}
 			}
@@ -177,32 +173,45 @@ public class Menu {
 				System.out.println("Il n'y a pas de produit contenant cet additif");
 
 			} else {
-				afficherListeProduits(produits);
 				menuSelection(produits);
 			}
 		}
 		afficherMenuPrincipal();
 	}
 
-	public void menuSelection(List<Produit> produits) {
+	public void menuSelection(List<Produit> produits){
+		
+		afficherListeProduits(produits);
+		
 		if (confirmation("\nSéléctionner un produit")) {
-			
-		    
+
 			int choixNumero = choixNumeroMenu(produits.size());
 
 			Produit produit = produits.get(choixNumero - 1);
 			System.out.println(produit);
 
-			if (confirmation("\nVoulez vous supprimer ou modifier le produit")) {
+			if (controller.obtenirProduitParNom(produit.getNom()) == null) {
+
+				if (confirmation("\nAjouter le produit")) {
+					controller.sauvegarderProduit(produit);
+					System.out.println("Produit ajouté à la base de donnée.");
+				}
+			}
+
+			else if (confirmation("\nVoulez vous supprimer ou modifier le produit")) {
 				menuEdition(produit);
-			} else {
+			}
+
+			else {
 				afficherMenuPrincipal();
 			}
 
-		} else {
+		} 
+		else {
 			afficherMenuPrincipal();
 		}
 	}
+
 
 	public void menuEdition(Produit produit) {
 		System.out.println("1. Modification\n2. Suppresion");
@@ -242,7 +251,7 @@ public class Menu {
 			afficherMenuPrincipal();
 		}
 	}
-    
+
 	private static void initialiserLesTables() {
 
 		Controller controller = new Controller();
