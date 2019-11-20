@@ -8,8 +8,9 @@ import model.Produit;
 
 public class Menu {
 
-	Scanner entree = new Scanner(System.in);
-	Controller controller = new Controller();
+	private Scanner entree = new Scanner(System.in);
+	private Controller controller = new Controller();
+	private final String SAISIR_NOMBRE_MESSAGE = "\nEntrez un chiffre entre 1 et ";
 
 	public boolean confirmation(String message) {
 		String choix = "";
@@ -23,10 +24,10 @@ public class Menu {
 	public int choixNumeroMenu(int max) {
 		int choix = 0;
 		do {
-			System.out.println("\nEntrez le numéro de votre choix :");
+			System.out.println(SAISIR_NOMBRE_MESSAGE + max);
 
 			while (!entree.hasNextInt()) {
-				System.out.println("\nMerci d'entrer un chiffre entre 1 et " + max);
+				System.out.println(SAISIR_NOMBRE_MESSAGE + max);
 				entree.next();
 			}
 
@@ -110,7 +111,7 @@ public class Menu {
 			System.out.println("Combien voulez vous afficher de produits ?");
 			
 			while(!entree.hasNextInt()) {
-				System.out.println("Merci de saisir un chiffre entre 1 et 1000");
+				System.out.println(SAISIR_NOMBRE_MESSAGE + 1000);
 				entree.next();
 			}
 			
