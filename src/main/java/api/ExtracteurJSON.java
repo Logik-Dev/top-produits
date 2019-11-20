@@ -62,19 +62,18 @@ public class ExtracteurJSON {
 	 */
 	public static List<Produit> extraireListeProduits(JSONArray produitsJsonArray) {
 		List<Produit> produits = new ArrayList<>();
-
+		List<Produit> produitsDansDB = new Controller().obtenirListeDeToutLesProduits();
+		
 		for (Object produitObject : produitsJsonArray) {
 			JSONObject produitJsonObject = (JSONObject) produitObject;
 
 			Produit produit = extraireProduit(produitJsonObject);
 
-			if (!produits.contains(produit) && produit != null) {
-				
-				if(new Controller().obtenirProduitParNom(produit.getNom().toLowerCase()) == null) {
-					produits.add(produit);
-				}			
+			if (!produits.contains(produit) && produit != null && !produitsDansDB.contains(produit)) {
+					produits.add(produit);				
 			}
 		}
+		
 		return produits;
 	}
 	
