@@ -4,6 +4,7 @@
 package top.produits;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import jdbc.RequetesDB;
 import jdbc.Session;
@@ -192,7 +193,25 @@ public class Controller {
 		return produits;
 
 	}
-	
+	public List<String> obtenirCodesAdditifsParIds(List<String> ids){
+		
+		List<String> codesAdditifs = new ArrayList<>();
+		
+		try {
+			for(String id: ids) {
+				Additif additif = RequetesDB.obtenirAdditifParId(session.getConnection(), id);
+				if(additif != null) {
+					codesAdditifs.add(additif.getCode());
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Impossible d'obtenir la liste des additifs.");
+		}
+		
+		return codesAdditifs;
+	}
 	public List<Additif> obtenirListeAdditifs(){
 		
 		List<Additif> additifs = null;
