@@ -74,7 +74,7 @@ public class Menu {
 				+ "Vous pouvez également personnaliser la base de donnée.\n");
 
 		System.out.println("1. Recherche par nom\n" + "2. Recherche par nutriscore\n" + "3. Recherche par additif\n"
-				+ "4. Afficher le Top Produit\n" + "5. Quitter\n");
+				+ "4. Afficher le Top Produit\n" + "5. Quitter");
 
 		int choix = choixNumeroMenu(5);
 
@@ -237,26 +237,26 @@ public class Menu {
 
 
 	public void menuEdition(Produit produit) {
-		System.out.println("1. Modification\n2. Suppresion");
+		System.out.println("1. Modification\n2. Suppression");
 
 		int choixNum = choixNumeroMenu(2);
 
 		if (choixNum == 1) {
 			String valeur = "";
-			System.out.println("Entrez un nom (Entrer pour ignorer):");
+			System.out.print("Entrez un nom (Entrer pour ignorer) : ");
 			valeur = entree.nextLine();
 			if (!valeur.isEmpty()) {
 				produit.setNom(valeur);
 			}
 
-			System.out.println("Entrez une marque (Entrer pour ignorer):");
+			System.out.print("Entrez une marque (Entrer pour ignorer) : ");
 			valeur = entree.nextLine();
 			if (!valeur.isEmpty()) {
 				produit.setMarque(valeur);
 			}
 			valeur = "z";
 			while (!valeur.matches("[a-eA-E]") && !valeur.isEmpty()) {
-				System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
+				System.out.print("Entrez un nutriscore (Entrer pour ignorer) : ");
 				valeur = entree.nextLine();
 			}
 			if (!valeur.isEmpty()) {
