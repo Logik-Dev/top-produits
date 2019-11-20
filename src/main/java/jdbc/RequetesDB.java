@@ -129,6 +129,24 @@ public class RequetesDB {
 		return additifs;
 	}
 	
+	public static Additif obtenirAdditifParId(Connection connection, String idAdditif) throws SQLException{
+		
+		String requete = "SELECT * FROM additif WHERE id = ?";
+		PreparedStatement statement = connection.prepareStatement(requete);
+		
+		statement.setString(1, idAdditif);
+		ResultSet result = statement.executeQuery();
+		Additif additif = null;
+		
+		while(result.next()) {
+			String id = result.getString("id");
+			String nom = result.getString("nom");
+			String code = result.getString("code");
+			additif = new Additif(id, nom, code);
+		}
+	
+		return additif;
+	}
 	
 	/**
 	 * permet d'obtenir la liste des id des additifs
