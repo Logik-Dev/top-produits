@@ -15,7 +15,7 @@ public class Menu {
 	public boolean confirmation(String message) {
 		String choix = "";
 		while (!choix.equalsIgnoreCase("O") && !choix.equalsIgnoreCase("N")) {
-			System.out.println(message + " ? (o/n)");
+			System.out.print(message + " ? : (o/n)");
 			choix = entree.nextLine();
 		}
 		return choix.equalsIgnoreCase("O") ? true : false;
@@ -24,10 +24,10 @@ public class Menu {
 	public int choixNumeroMenu(int max) {
 		int choix = 0;
 		do {
-			System.out.println(SAISIR_NOMBRE_MESSAGE + max);
+			System.out.print(SAISIR_NOMBRE_MESSAGE + max + " : ");
 
 			while (!entree.hasNextInt()) {
-				System.out.println(SAISIR_NOMBRE_MESSAGE + max);
+				System.out.println(SAISIR_NOMBRE_MESSAGE + max + " : ");
 				entree.next();
 			}
 
@@ -108,7 +108,7 @@ public class Menu {
 		int limit = 0;
 		
 		do {		
-			System.out.println("Combien voulez vous afficher de produits ?");
+			System.out.print("Combien voulez vous afficher de produits ? : ");
 			
 			while(!entree.hasNextInt()) {
 				System.out.println(SAISIR_NOMBRE_MESSAGE + 1000);
@@ -136,12 +136,12 @@ public class Menu {
 	public void menuRechercheNutriscore() {
 
 		String nutriscore = "";
-		System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
+		System.out.print("Entrez un nutriscore (Entrer pour ignorer) : ");
 		nutriscore = entree.nextLine();
 
 		while (!nutriscore.matches("[a-eA-E]") && !nutriscore.isEmpty()) {
 
-			System.out.println("Veuillez saisir un nutriscore entre A et E");
+			System.out.print("Veuillez saisir un nutriscore entre A et E : ");
 			nutriscore = entree.nextLine();
 		}
 
@@ -154,7 +154,7 @@ public class Menu {
 
 		String nom = "";
 
-		System.out.println("Veuillez saisir le nom du produit à rechercher :");
+		System.out.print("Veuillez saisir le nom du produit à rechercher : ");
 		nom = entree.nextLine();
 
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
