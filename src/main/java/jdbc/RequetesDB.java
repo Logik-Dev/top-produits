@@ -10,10 +10,24 @@ import java.util.List;
 import model.Additif;
 import model.Produit;
 
+
+/**
+ * classe permettant de définir les requètes vers la base de donnée. Elles utilisent une connexion préalablement créée.
+ * 
+ * @author Cédric, Bastien, Elodie
+ *
+ */
 public class RequetesDB {
 
 	// REQUETES CREATE
 
+	
+/**
+ * classe qui permet de sauvegarder les additifs dans la base de donnée.
+ * @param connection
+ * @param additif
+ * @throws SQLException
+ */
 	public static void sauvegarderAdditif(Connection connection, Additif additif) throws SQLException {
 
 		String requete = "INSERT INTO additif VALUES (?,?,?)";

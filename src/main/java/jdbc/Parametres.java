@@ -1,9 +1,15 @@
 package jdbc;
 
+/*
+ * classe qui permet de sauvegarder les paramètres de connexion
+ * 
+ * @author Cédric, Bastien, Elodie
+ * 
+ */
 public class Parametres {
 	
-	private static String user     = "cedric";
-	private static String password = "changeme";
+	private static String user     = "root";
+	private static String password = "root";
 	private static String url		= "jdbc:mysql://localhost:3306/top-produits";
 	
 	public static String getUser() {
