@@ -116,9 +116,15 @@ public class Menu {
 	public void menuRechercheNutriscore() {
 
 		String nutriscore = "";
-		System.out.println("Veuillez saisir un nutriscore");
+        System.out.println("Entrez un nutriscore (Entrer pour ignorer):");
 		nutriscore = entree.nextLine();
-
+		
+		while (!nutriscore.matches("[a-eA-E]") && !nutriscore.isEmpty()) {
+			
+			System.out.println("Veuillez saisir un nutriscore entre A et E");
+			nutriscore = entree.nextLine();
+		}
+		
 		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
 		afficherListeProduits(produits);
 
@@ -163,16 +169,16 @@ public class Menu {
 			Additif additif = additifs.get(choixNumero - 1);
 
 			List<Produit> produits = controller.obtenirListeProduitsParAdditif(additif.getCode());
-			
+
 			if (produits.size() == 0) {
 				System.out.println("Il n'y a pas de produit contenant cet additif");
 
-			} 
-			else {
+			} else {
 				afficherListeProduits(produits);
 				menuSelection(produits);
 			}
 		}
+		afficherMenuPrincipal();
 	}
 
 	public void menuSelection(List<Produit> produits) {
