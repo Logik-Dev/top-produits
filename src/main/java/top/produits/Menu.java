@@ -189,7 +189,7 @@ public class Menu {
 
 		String nom = "";
 
-		System.out.print("Veuillez saisir le nom du produit à rechercher : ");
+		System.out.print("\nVeuillez saisir le nom du produit à rechercher : ");
 		nom = entree.nextLine();
 
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
@@ -265,6 +265,7 @@ public class Menu {
 				if (confirmation("\nAjouter le produit")) {
 					controller.sauvegarderProduit(produit);
 					System.out.println("Produit ajouté à la base de donnée.");
+					afficherMenuPrincipal();
 				}
 		
 				else {
