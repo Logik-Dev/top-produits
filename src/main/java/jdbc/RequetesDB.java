@@ -113,7 +113,7 @@ public class RequetesDB {
 
 	
 	/**
-	 * permet d'afficher la liste des id des additifs
+	 * permet d'obtenir la liste des id des additifs
 	 * @param connection
 	 * @param idProduit
 	 * @return additifsIds
@@ -138,7 +138,7 @@ public class RequetesDB {
 	
 	
     /**
-     * permet d'afficher la liste des produits
+     * permet d'obtenir la liste des produits
      * @param connection
      * @return la méthode extraireListeProduits
      * @throws SQLException
@@ -154,7 +154,7 @@ public class RequetesDB {
 	
 	
 	/**
-	 * permet d'afficher une liste de produit par nutriscore recherché
+	 * permet d'obtenir une liste de produit par nutriscore recherché
 	 * @param connection
 	 * @param nutriscore
 	 * @return extraireListeProduits
@@ -174,7 +174,7 @@ public class RequetesDB {
 	}
 
 	/**
-	 * permet d'afficher une liste de produit par nom recherché
+	 * permet d'obtenir une liste de produit par nom recherché
 	 * @param connection
 	 * @param nom
 	 * @return extraireListeProduits
@@ -195,7 +195,7 @@ public class RequetesDB {
 	
 
 	/**
-	 * permet d'afficher une liste de produits par additif recherché
+	 * permet d'obtenir une liste de produits par additif recherché
 	 * @param connection
 	 * @param code
 	 * @return extraireListeProduits
@@ -217,7 +217,7 @@ public class RequetesDB {
 
 	
 	/**
-	 * permet d'afficher une liste des produits les plus vendus par nombre défini
+	 * permet d'obtenir une liste des produits les plus vendus par nombre défini
 	 * @param connection
 	 * @param nombre
 	 * @return extraireListeProduits
