@@ -1,10 +1,10 @@
 package jdbc;
 
-/*
+/**
  * classe qui permet de sauvegarder les paramètres de connexion
  * 
  * @author Cédric, Bastien, Elodie
- * 
+ *
  */
 public class Parametres {
 	

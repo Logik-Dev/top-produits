@@ -22,7 +22,7 @@ public class RequetesDB {
 	// REQUETES CREATE
 
 /**
- * classe qui permet de sauvegarder les additifs dans la base de donnée.
+ * permet de sauvegarder les additifs dans la base de donnée.
  * @param connection
  * @param additif
  * @throws SQLException
@@ -43,7 +43,7 @@ public class RequetesDB {
 
 	
 	/**
-	 * classe qui permet de sauvegarder les produits dans la base de donnée.
+	 * permet de sauvegarder les produits dans la base de donnée.
 	 * @param connection
 	 * @param produit
 	 * @throws SQLException
@@ -64,7 +64,7 @@ public class RequetesDB {
 
 	
 	/**
-	 * classe qui permet de sauvegarder les additifs d'un produit dans la base de donnée.
+	 * permet de sauvegarder les additifs d'un produit dans la base de donnée.
 	 * @param connection
 	 * @param additifId
 	 * @param produitId
@@ -89,7 +89,7 @@ public class RequetesDB {
 	// REQUETES READ
 
 	/**
-	 * classe qui permet d'extraire une liste de produit de la base de donnée.
+	 * permet d'extraire une liste de produit de la base de donnée.
 	 * @param connection
 	 * @param result
 	 * @return produits
@@ -113,7 +113,7 @@ public class RequetesDB {
 
 	
 	/**
-	 * classe qui permet d'afficher la liste des id des additifs
+	 * permet d'afficher la liste des id des additifs
 	 * @param connection
 	 * @param idProduit
 	 * @return additifsIds
@@ -138,7 +138,7 @@ public class RequetesDB {
 	
 	
     /**
-     * classe qui permet d'afficher la liste des produits
+     * permet d'afficher la liste des produits
      * @param connection
      * @return la méthode extraireListeProduits
      * @throws SQLException
@@ -154,7 +154,7 @@ public class RequetesDB {
 	
 	
 	/**
-	 * classe qui permet d'afficher une liste de produit par nutriscore recherché
+	 * permet d'afficher une liste de produit par nutriscore recherché
 	 * @param connection
 	 * @param nutriscore
 	 * @return extraireListeProduits
@@ -174,7 +174,7 @@ public class RequetesDB {
 	}
 
 	/**
-	 * classe qui permet d'afficher une liste de produit par nom recherché
+	 * permet d'afficher une liste de produit par nom recherché
 	 * @param connection
 	 * @param nom
 	 * @return extraireListeProduits

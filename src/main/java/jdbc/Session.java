@@ -34,6 +34,7 @@ public class Session {
 		return connection;
 	}
 
+	
 	/**
 	 * Initialise la connection.
 	 * 
