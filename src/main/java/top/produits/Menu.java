@@ -12,10 +12,14 @@ public class Menu {
 	private Controller controller = new Controller();
 	private final String SAISIR_NOMBRE_MESSAGE = "\nEntrez un chiffre entre 1 et ";
 
+	public Menu() {
+		afficherMenuPrincipal();
+	}
+
 	public boolean confirmation(String message) {
 		String choix = "";
 		while (!choix.equalsIgnoreCase("O") && !choix.equalsIgnoreCase("N")) {
-			System.out.print(message + " ? : (o/n)");
+			System.out.print(message + "? (o/n) : ");
 			choix = entree.nextLine();
 		}
 		return choix.equalsIgnoreCase("O") ? true : false;
@@ -60,17 +64,16 @@ public class Menu {
 	}
 
 	public void afficherMenuPrincipal() {
-		
+
 		try {
 			Thread.sleep(1500);
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("\n\t\t\t\t\t\t\tTOP PRODUITS\n\n"
 				+ "Cette application vous permet de rechercher un produit, ses additifs et son nutriscore "
-				+ "parmi une liste de produit les plus populaires du moment.\n"
+				+ "parmi une liste de produits les plus populaires du moment.\n"
 				+ "Vous pouvez également personnaliser la base de donnée.\n");
 
 		System.out.println("1. Recherche par nom\n" + "2. Recherche par nutriscore\n" + "3. Recherche par additif\n"
@@ -104,23 +107,23 @@ public class Menu {
 	}
 
 	public void menuTopProduits() {
-		
+
 		int limit = 0;
-		
-		do {		
+
+		do {
 			System.out.print("Combien voulez vous afficher de produits ? : ");
-			
-			while(!entree.hasNextInt()) {
+
+			while (!entree.hasNextInt()) {
 				System.out.println(SAISIR_NOMBRE_MESSAGE + 1000);
 				entree.next();
 			}
-			
+
 			limit = entree.nextInt();
-		
-		}while(limit < 1 || limit > 1000);
-		
+
+		} while (limit < 1 || limit > 1000);
+
 		entree.nextLine();
-		
+
 		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(limit);
 
 		menuSelection(produits);
@@ -146,7 +149,7 @@ public class Menu {
 		}
 
 		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
-		
+
 		menuSelection(produits);
 	}
 
@@ -199,20 +202,20 @@ public class Menu {
 		afficherMenuPrincipal();
 	}
 
-	public void menuSelection(List<Produit> produits){
-		
+	public void menuSelection(List<Produit> produits) {
+
 		afficherListeProduits(produits);
-		
+
 		if (confirmation("\nSéléctionner un produit")) {
 
 			int choixNumero = choixNumeroMenu(produits.size());
 
 			Produit produit = produits.get(choixNumero - 1);
 			List<String> codes = controller.obtenirCodesAdditifsParIds(produit.getAdditifs());
-			
+
 			System.out.println(produit);
 			System.out.println("- additifs: " + codes);
-			
+
 			if (controller.obtenirProduitParNom(produit.getNom()) == null) {
 
 				if (confirmation("\nAjouter le produit")) {
@@ -229,12 +232,10 @@ public class Menu {
 				afficherMenuPrincipal();
 			}
 
-		} 
-		else {
+		} else {
 			afficherMenuPrincipal();
 		}
 	}
-
 
 	public void menuEdition(Produit produit) {
 		System.out.println("1. Modification\n2. Suppression");
@@ -275,21 +276,4 @@ public class Menu {
 		}
 	}
 
-	private static void initialiserLesTables() {
-
-		Controller controller = new Controller();
-		controller.sauvegarderListeAdditif(RequetesAPI.obtenirListeAdditifs());
-		controller.sauvegarderListeProduits(RequetesAPI.obtenirListeTopProduits());
-	}
-
-	public static void main(String[] args) {
-
-		if (new Controller().obtenirListeDeToutLesProduits().size() == 0) {
-			initialiserLesTables();
-		}
-
-		Menu test = new Menu();
-		test.afficherMenuPrincipal();
-
-	}
 }
