@@ -10,12 +10,17 @@ public class Menu {
 
 	private Scanner entree = new Scanner(System.in);
 	private Controller controller = new Controller();
-	private final String SAISIR_NOMBRE_MESSAGE = "\nEntrez un chiffre entre 1 et ";
+	private final String SAISIR_NOMBRE_MESSAGE = "Entrez un chiffre entre 1 et ";
 
 	public Menu() {
 		afficherMenuPrincipal();
 	}
-
+	
+	/**
+	 * Demander à l'utilisateur une confirmation en affichant un message
+	 * @param message Le message à afficher
+	 * @return True si l'utilisateur approuve ou False sinon
+	 */
 	public boolean confirmation(String message) {
 		String choix = "";
 		while (!choix.equalsIgnoreCase("O") && !choix.equalsIgnoreCase("N")) {
@@ -25,6 +30,11 @@ public class Menu {
 		return choix.equalsIgnoreCase("O") ? true : false;
 	}
 
+	/**
+	 * Permettre à l'utilisateur de saisir un nombre correspondant à son choix
+	 * @param max Le chiffre maximum autorisé
+	 * @return Le chiffre choisi par l'uilisateur
+	 */
 	public int choixNumeroMenu(int max) {
 		int choix = 0;
 		do {
@@ -43,6 +53,10 @@ public class Menu {
 		return choix;
 	}
 
+	/**
+	 * Afficher une liste de produits numérotés 
+	 * @param produits La liste à afficher
+	 */
 	public void afficherListeProduits(List<Produit> produits) {
 		int count = 1;
 
@@ -53,6 +67,10 @@ public class Menu {
 
 	}
 
+	/**
+	 * Afficher une liste d'additifs numérotés
+	 * @param additifs La liste à afficher
+	 */
 	public void afficherListeAdditifs(List<Additif> additifs) {
 		int count = 1;
 
@@ -63,6 +81,9 @@ public class Menu {
 
 	}
 
+	/**
+	 * Gestion du menu principal
+	 */
 	public void afficherMenuPrincipal() {
 
 		try {
@@ -77,7 +98,7 @@ public class Menu {
 				+ "Vous pouvez également personnaliser la base de donnée.\n");
 
 		System.out.println("1. Recherche par nom\n" + "2. Recherche par nutriscore\n" + "3. Recherche par additif\n"
-				+ "4. Afficher le Top Produit\n" + "5. Quitter");
+				+ "4. Afficher le Top Produit\n" + "5. Quitter\n");
 
 		int choix = choixNumeroMenu(5);
 
@@ -106,6 +127,9 @@ public class Menu {
 
 	}
 
+	/**
+	 * Afficher une liste limitée des produits les plus populaires
+	 */
 	public void menuTopProduits() {
 
 		int limit = 0;
@@ -128,7 +152,10 @@ public class Menu {
 
 		menuSelection(produits);
 	}
-
+	
+	/**
+	 * Menu pour rechercher un produit par additif
+	 */
 	public void menuRechercheAdditif() {
 
 		List<Additif> additifs = controller.obtenirListeAdditifs();
@@ -136,6 +163,9 @@ public class Menu {
 		menuSelectionAdditif(additifs);
 	}
 
+	/**
+	 * Menu pour rechercher un produit par nutriscore
+	 */
 	public void menuRechercheNutriscore() {
 
 		String nutriscore = "";
@@ -153,6 +183,9 @@ public class Menu {
 		menuSelection(produits);
 	}
 
+	/**
+	 * Gestion du menu de recherche de produit
+	 */
 	public void menuRechercheProduit() {
 
 		String nom = "";
@@ -183,6 +216,10 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Gestion du menu de séléction d'additif
+	 * @param additifs
+	 */
 	public void menuSelectionAdditif(List<Additif> additifs) {
 		while (confirmation("\nSéléctionner un additif")) {
 
@@ -202,6 +239,10 @@ public class Menu {
 		afficherMenuPrincipal();
 	}
 
+	/**
+	 * Permettre de séléctionner un produit parmi une liste
+	 * @param produits La liste de produits à afficher
+	 */
 	public void menuSelection(List<Produit> produits) {
 
 		afficherListeProduits(produits);
@@ -236,7 +277,11 @@ public class Menu {
 			afficherMenuPrincipal();
 		}
 	}
-
+	
+	/**
+	 * Permettre d'ajouter, de modifier ou de supprimer un produit
+	 * @param produit Le produit à éditer
+	 */
 	public void menuEdition(Produit produit) {
 		System.out.println("1. Modification\n2. Suppression");
 
