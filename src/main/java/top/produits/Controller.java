@@ -5,8 +5,9 @@ package top.produits;
 
 import java.sql.SQLException;
 import java.util.List;
-import jbdc.RequetesDB;
-import jbdc.Session;
+
+import jdbc.RequetesDB;
+import jdbc.Session;
 import model.Additif;
 import model.Produit;
 
