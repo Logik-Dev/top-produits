@@ -2,9 +2,9 @@ package jdbc;
 
 public class Parametres {
 	
-	private static String user     = "root";
-	private static String password = "@Bacoon17!";
-	private static String url	   = "jdbc:mysql://localhost:3308/Top-Produits?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static String user     = "cedric";
+	private static String password = "changeme";
+	private static String url	   = "jdbc:mysql://localhost:3306/top-produits";
 	
 	public static String getUser() {
 		return user;

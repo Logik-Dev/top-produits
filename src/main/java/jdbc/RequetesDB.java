@@ -184,8 +184,10 @@ public class RequetesDB {
 		PreparedStatement statement = connection.prepareStatement(requete);
 		
 		ResultSet result = statement.executeQuery();
+		List<Produit> produits = extraireListeProduits(connection, result);
 		
-		return extraireListeProduits(connection, result);
+		statement.close();
+		return produits;
 	}
 	
 	
@@ -205,7 +207,10 @@ public class RequetesDB {
 		statement.setString(1, String.valueOf(nutriscore).toUpperCase());
 		ResultSet result = statement.executeQuery();
 
-		return extraireListeProduits(connection, result);
+		List<Produit> produits = extraireListeProduits(connection, result);
+		statement.close();
+		
+		return produits;
 
 	}
 
@@ -225,7 +230,10 @@ public class RequetesDB {
 
 		ResultSet result = statement.executeQuery();
 
-		return extraireListeProduits(connection, result);
+		List<Produit> produits = extraireListeProduits(connection, result);
+		statement.close();
+		
+		return produits;
 
 	}
 	
@@ -247,7 +255,10 @@ public class RequetesDB {
 		statement.setString(1, code);
 		ResultSet result = statement.executeQuery();
 
-		return extraireListeProduits(connection, result);
+		List<Produit> produits = extraireListeProduits(connection, result);
+		statement.close();
+		
+		return produits;
 
 	}
 
@@ -268,8 +279,10 @@ public class RequetesDB {
 		statement.setInt(1, nombre);
 		ResultSet result = statement.executeQuery();
 
-		return extraireListeProduits(connection, result);
-
+		List<Produit> produits = extraireListeProduits(connection, result);
+		statement.close();
+		
+		return produits;
 	}
 	
 	
@@ -298,6 +311,7 @@ public class RequetesDB {
 
 			produit = new Produit(id, name, marque, nutriscore, additifs);
 		}
+		
 		statement.close();
 		return produit;
 	}

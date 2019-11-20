@@ -12,12 +12,9 @@ public class Menu {
 	private Controller controller = new Controller();
 	private final String SAISIR_NOMBRE_MESSAGE = "Entrez un chiffre entre 1 et ";
 
-	public Menu() {
-		afficherMenuPrincipal();
-	}
-	
 	/**
 	 * Demander à l'utilisateur une confirmation en affichant un message
+	 * 
 	 * @param message Le message à afficher
 	 * @return True si l'utilisateur approuve ou False sinon
 	 */
@@ -32,6 +29,7 @@ public class Menu {
 
 	/**
 	 * Permettre à l'utilisateur de saisir un nombre correspondant à son choix
+	 * 
 	 * @param max Le chiffre maximum autorisé
 	 * @return Le chiffre choisi par l'uilisateur
 	 */
@@ -54,7 +52,8 @@ public class Menu {
 	}
 
 	/**
-	 * Afficher une liste de produits numérotés 
+	 * Afficher une liste de produits numérotés
+	 * 
 	 * @param produits La liste à afficher
 	 */
 	public void afficherListeProduits(List<Produit> produits) {
@@ -64,11 +63,11 @@ public class Menu {
 			System.out.println(count + ". " + produit.getNom());
 			count++;
 		}
-
 	}
 
 	/**
 	 * Afficher une liste d'additifs numérotés
+	 * 
 	 * @param additifs La liste à afficher
 	 */
 	public void afficherListeAdditifs(List<Additif> additifs) {
@@ -150,9 +149,9 @@ public class Menu {
 
 		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(limit);
 
-		menuSelection(produits);
+		menuSelectionProduit(produits);
 	}
-	
+
 	/**
 	 * Menu pour rechercher un produit par additif
 	 */
@@ -180,7 +179,7 @@ public class Menu {
 
 		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
 
-		menuSelection(produits);
+		menuSelectionProduit(produits);
 	}
 
 	/**
@@ -196,11 +195,11 @@ public class Menu {
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
 
 		if (produits.size() > 0) {
-			menuSelection(produits);
+			menuSelectionProduit(produits);
 		}
 
 		else {
-			System.out.println("Le produit recherché n'a pas été trouvé dans la base de donnée");
+			System.out.println("Le produit recherché n'a pas été trouvé dans la base de donnée !");
 
 			if (confirmation("Voulez vous faire une recherche étendue")) {
 				produits = RequetesAPI.rechercherProduitsParNom(nom);
@@ -209,15 +208,18 @@ public class Menu {
 					System.out.println("Le produit n'est pas référencé\n");
 					afficherMenuPrincipal();
 				} else {
-					menuSelection(produits);
+					menuSelectionProduit(produits);
 				}
+			} else {
+				afficherMenuPrincipal();
 			}
-			afficherMenuPrincipal();
+
 		}
 	}
 
 	/**
 	 * Gestion du menu de séléction d'additif
+	 * 
 	 * @param additifs
 	 */
 	public void menuSelectionAdditif(List<Additif> additifs) {
@@ -233,7 +235,7 @@ public class Menu {
 				System.out.println("Il n'y a pas de produit contenant cet additif");
 
 			} else {
-				menuSelection(produits);
+				menuSelectionProduit(produits);
 			}
 		}
 		afficherMenuPrincipal();
@@ -241,9 +243,10 @@ public class Menu {
 
 	/**
 	 * Permettre de séléctionner un produit parmi une liste
+	 * 
 	 * @param produits La liste de produits à afficher
 	 */
-	public void menuSelection(List<Produit> produits) {
+	public void menuSelectionProduit(List<Produit> produits) {
 
 		afficherListeProduits(produits);
 
@@ -263,6 +266,10 @@ public class Menu {
 					controller.sauvegarderProduit(produit);
 					System.out.println("Produit ajouté à la base de donnée.");
 				}
+		
+				else {
+					afficherMenuPrincipal();
+				}
 			}
 
 			else if (confirmation("\nVoulez vous supprimer ou modifier le produit")) {
@@ -277,9 +284,10 @@ public class Menu {
 			afficherMenuPrincipal();
 		}
 	}
-	
+
 	/**
 	 * Permettre d'ajouter, de modifier ou de supprimer un produit
+	 * 
 	 * @param produit Le produit à éditer
 	 */
 	public void menuEdition(Produit produit) {

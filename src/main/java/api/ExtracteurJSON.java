@@ -6,8 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import model.Additif;
 import model.Produit;
+import top.produits.Controller;
+
 /**
- * Transforme le json en objets utilisables
+ * Transforme des données au format JSON en objets utilisables
  * 
  * @author Elodie, Bastien, Cédric
  * 
@@ -43,7 +45,7 @@ public class ExtracteurJSON {
 		}
 
 		if (produitJsonObject.has("nutriscore_grade")) {
-			nutriscore = produitJsonObject.getString("nutriscore_grade").charAt(0);
+			nutriscore = produitJsonObject.getString("nutriscore_grade").toUpperCase().charAt(0);
 		}
 
 		if (!nom.isEmpty() && nutriscore != null && !marque.isEmpty()) {
@@ -67,7 +69,10 @@ public class ExtracteurJSON {
 			Produit produit = extraireProduit(produitJsonObject);
 
 			if (!produits.contains(produit) && produit != null) {
-				produits.add(produit);
+				
+				if(new Controller().obtenirProduitParNom(produit.getNom().toLowerCase()) == null) {
+					produits.add(produit);
+				}			
 			}
 		}
 		return produits;
