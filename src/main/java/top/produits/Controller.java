@@ -10,12 +10,21 @@ import jdbc.RequetesDB;
 import jdbc.Session;
 import model.Additif;
 import model.Produit;
-
+/**
+ * Classe qui fait le lien entre la base de donnée et les actions utilisateur
+ * 
+ * @author Elodie, Bastien, Cédric
+ * 
+ */
 public class Controller {
 
 	private Session session = new Session();
 	private final String ERREUR_LIST = "Impossible d'obtenir la liste de produits.";
-
+	
+	/**
+	 * Sauvegarder un additif en base de donnée
+	 * @param additif L'additif à sauvegarder
+	 */
 	public void sauvegarderAdditif(Additif additif) {
 
 		try {
@@ -27,6 +36,10 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Sauvegarder une liste d'additifs en base de donnée
+	 * @param additifs Une ArrayList d'objets Additif à sauvegarder
+	 */
 	public void sauvegarderListeAdditif(List<Additif> additifs) {
 
 		try {
@@ -41,6 +54,10 @@ public class Controller {
 
 	}
 
+	/**
+	 * Sauvegarder un produit en base de donnée
+	 * @param produit L'objet Produit à sauvegarder
+	 */
 	public void sauvegarderProduit(Produit produit) {
 
 		try {
@@ -65,6 +82,10 @@ public class Controller {
 
 	}
 
+	/**
+	 * Sauvegarder une liste de produits en base de donnée
+	 * @param produits Une ArrayList d'objets Produit à sauvegarder
+	 */
 	public void sauvegarderListeProduits(List<Produit> produits) {
 
 		try {
@@ -78,6 +99,10 @@ public class Controller {
 
 	}
 
+	/**
+	 * Obtenir la liste de tout les produits en base de donnée
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirListeDeToutLesProduits() {
 		List<Produit> produits = null;
 
@@ -90,6 +115,11 @@ public class Controller {
 		return produits;
 	}
 
+	/**
+	 * Obtenir une liste limitée de produit depuis la base de donnée
+	 * @param nombre Le nombre de produits souhaités
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirListeLimiteeDeProduits(int nombre) {
 		List<Produit> produits = null;
 
@@ -106,6 +136,12 @@ public class Controller {
 
 	}
 
+	/**
+	 * Obtenir une liste de produits correspondant au nutriscore choisi
+	 * depuis la base de donnée
+	 * @param nutriscore Le nutriscore choisi
+	 * @return Une ArrayList d'objet Produit
+	 */
 	public List<Produit> obtenirListeProduitsParNutriscore(char nutriscore) {
 		List<Produit> produits = null;
 
@@ -118,6 +154,11 @@ public class Controller {
 		return produits;
 	}
 
+	/**
+	 * Obtenir une liste de produits contenant le nom depuis la base de donnée
+	 * @param nom Le nom à rechercher
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirListeProduitsParNom(String nom) {
 		List<Produit> produits = null;
 
@@ -132,6 +173,11 @@ public class Controller {
 
 	}
 
+	/**
+	 * Obtenir une liste de produits contenant l'additif fourni depuis la base de donnée
+	 * @param codeAdditif Le code de l'additif
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirListeProduitsParAdditif(String codeAdditif) {
 		List<Produit> produits = null;
 
@@ -146,6 +192,11 @@ public class Controller {
 
 	}
 
+	/**
+	 * Obtenir un produit par nom depuis la base de donnée
+	 * @param nom Le nom du produit recherché
+	 * @return Un objet Produit
+	 */
 	public Produit obtenirProduitParNom(String nom) {
 		Produit produit = null;
 
@@ -159,6 +210,10 @@ public class Controller {
 		return produit;
 	}
 
+	/**
+	 * Modifier un produit en base de donnée
+	 * @param produit Le nouvel objet Produit à enregistrer
+	 */
 	public void modifierProduit(Produit produit) {
 
 		try {
@@ -170,6 +225,10 @@ public class Controller {
 
 	}
 
+	/**
+	 * Supprimer un produit dans la base de donnée
+	 * @param produit L'objet Produit à supprimer
+	 */
 	public void supprimerProduit(Produit produit) {
 
 		try {
