@@ -180,20 +180,4 @@ public class Controller {
 		}
 	}
 
-	/*
-	 * public static void main(String[] args) throws MalformedURLException,
-	 * IOException, SQLException {
-	 * 
-	 * App test = new App(); // test.recupererAdditifs(); //
-	 * test.sauvegarderAdditifs(); // test.recupererTopProduitsAPI(); //
-	 * test.sauvegarderProduits(); // test.afficheProduitParNutriscore('e'); //
-	 * test.afficheProduitParNom("aux"); // test.afficheProduitParAdditif("E579");
-	 * // test.afficheNombreDefiniDeProduit(1); //
-	 * test.supprimerProduitParNom("compote pomme vanille"); // Produit produit =
-	 * test.selectionnerProduitParNom("confiture extra fraises"); //
-	 * produit.setMarque("Nutella"); // test.modifierProduit(produit);
-	 * test.recupererProduitsParNomAPI("kinder"); test.afficherProduitsParNomJson();
-	 * 
-	 * }
-	 */
 }
