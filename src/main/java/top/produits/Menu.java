@@ -232,12 +232,12 @@ public class Menu {
 
 			System.out.println(produit + "\n");
 			controller.modifierProduit(produit);
-			System.out.println("Produit modifié\n\n\n\n");
+			System.out.println("Produit modifié\n");
 			afficherMenuPrincipal();
 
 		} else {
 			controller.supprimerProduit(produit);
-			System.out.println("Produit supprimé\n\n\n\n");
+			System.out.println("Produit supprimé\n");
 			afficherMenuPrincipal();
 		}
 	}
