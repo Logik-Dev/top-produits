@@ -55,25 +55,58 @@ public class Menu {
 				+ "Vous pouvez également personnaliser la base de donnée.\n");
 
 		System.out.println("1. Recherche par nom\n" + "2. Recherche par nutriscore\n" + "3. Recherche par additif\n"
-				+ "4. Afficher le Top Produit\n");
+				+ "4. Afficher le Top Produit\n" +  "5. Quitter\n");
 
-		int choix = choixNumeroMenu(4);
+		int choix = choixNumeroMenu(5);
 
 		switch (choix) {
 
 		case 1:
 			menuRechercheProduit();
 			break;
+			
+		case 2:
+			menuRechercheNutriscore();
+			break;
+			
+		case 3;
+		
 
 		case 4:
-			List<Produit> produits = controller.obtenirListeDeToutLesProduits();
-			afficherListeProduits(produits);
-			menuSelection(produits);
+			menuTopProduits();
+			break;
+			
+		case 5:
+			System.out.println("Au revoir!");
 			break;
 		}
 
 	}
 
+	public void menuTopProduits() {
+		
+		System.out.println("Combien voulez vous afficher de produit?");
+		int nombre = entree.nextInt();
+		
+		entree.nextLine();
+		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(nombre);
+		afficherListeProduits(produits);
+		menuSelection(produits);
+	}
+	
+	public void menuRechercheNutriscore() {
+		
+		
+		String nutriscore = "";
+		System.out.println("Veuillez saisir un nutriscore");
+		nutriscore = entree.nextLine();
+		
+		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
+		afficherListeProduits(produits);
+		
+		menuSelection(produits);
+	}
+	
 	public void menuRechercheProduit() {
 
 		String nom = "";

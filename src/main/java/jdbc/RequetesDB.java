@@ -160,7 +160,7 @@ public class RequetesDB {
 	 * @return extraireListeProduits
 	 * @throws SQLException
 	 */
-	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, char nutriscore)
+	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, String nutriscore)
 			throws SQLException {
 
 		String requete = "SELECT * FROM produit WHERE nutriscore = ?";

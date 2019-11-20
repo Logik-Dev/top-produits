@@ -10,7 +10,7 @@ public class Parametres {
 	
 	private static String user     = "root";
 	private static String password = "root";
-	private static String url		= "jdbc:mysql://localhost:3308/topproduit?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static String url		= "jdbc:mysql://localhost:3308/top-produits?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	
 	public static String getUser() {
 		return user;

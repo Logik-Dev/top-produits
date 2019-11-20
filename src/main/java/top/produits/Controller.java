@@ -5,11 +5,12 @@ package top.produits;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import jdbc.RequetesDB;
 import jdbc.Session;
 import model.Additif;
 import model.Produit;
+
+
 /**
  * Classe qui fait le lien entre la base de donnée et les actions utilisateur
  * 
@@ -142,7 +143,7 @@ public class Controller {
 	 * @param nutriscore Le nutriscore choisi
 	 * @return Une ArrayList d'objet Produit
 	 */
-	public List<Produit> obtenirListeProduitsParNutriscore(char nutriscore) {
+	public List<Produit> obtenirListeProduitsParNutriscore(String nutriscore) {
 		List<Produit> produits = null;
 
 		try {
