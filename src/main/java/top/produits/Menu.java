@@ -103,12 +103,24 @@ public class Menu {
 	}
 
 	public void menuTopProduits() {
-
-		System.out.println("Combien voulez vous afficher de produit?");
-		int nombre = entree.nextInt();
-
+		
+		int limit = 0;
+		
+		do {		
+			System.out.println("Combien voulez vous afficher de produits ?");
+			
+			while(!entree.hasNextInt()) {
+				System.out.println("Merci de saisir un chiffre entre 1 et 1000");
+				entree.next();
+			}
+			
+			limit = entree.nextInt();
+		
+		}while(limit < 1 || limit > 1000);
+		
 		entree.nextLine();
-		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(nombre);
+		
+		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(limit);
 
 		menuSelection(produits);
 	}
