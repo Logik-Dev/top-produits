@@ -111,6 +111,24 @@ public class RequetesDB {
 		return produits;
 	}
 
+	public static List<Additif> obtenirListAdditifs(Connection connection) throws SQLException{
+		
+		String requete = "SELECT * FROM additif ";
+		PreparedStatement statement = connection.prepareStatement(requete);
+		ResultSet result = statement.executeQuery();
+		
+		List<Additif> additifs = new ArrayList<>();
+		while(result.next()) {
+			String id = result.getString("id");
+			String nom = result.getString("nom");
+			String code = result.getString("code");
+			Additif additif = new Additif(id, nom, code);
+	        additifs.add(additif);
+		}
+		statement.close();
+		return additifs;
+	}
+	
 	
 	/**
 	 * permet d'obtenir la liste des id des additifs

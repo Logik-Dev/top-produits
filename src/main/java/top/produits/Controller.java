@@ -192,6 +192,19 @@ public class Controller {
 		return produits;
 
 	}
+	
+	public List<Additif> obtenirListeAdditifs(){
+		
+		List<Additif> additifs = null;
+		
+		try {
+			additifs = RequetesDB.obtenirListAdditifs(session.getConnection());
+		}catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Impossible d'obtenir la liste d'additifs");
+		}
+		return additifs;
+	}
 
 	/**
 	 * Obtenir un produit par nom depuis la base de donnée

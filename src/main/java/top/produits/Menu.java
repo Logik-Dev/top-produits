@@ -3,6 +3,7 @@ package top.produits;
 import java.util.List;
 import java.util.Scanner;
 import api.RequetesAPI;
+import model.Additif;
 import model.Produit;
 
 public class Menu {
@@ -47,6 +48,16 @@ public class Menu {
 
 	}
 
+	public void afficherListeAdditifs(List<Additif> additifs) {
+		int count = 1;
+
+		for (Additif additif : additifs) {
+			System.out.println(count + ". " + additif.getCode() + " " + additif.getNom());
+			count++;
+		}
+
+	}
+
 	public void afficherMenuPrincipal() {
 
 		System.out.println("\n\t\t\t\t\t\t\tTOP PRODUITS\n\n"
@@ -55,7 +66,7 @@ public class Menu {
 				+ "Vous pouvez également personnaliser la base de donnée.\n");
 
 		System.out.println("1. Recherche par nom\n" + "2. Recherche par nutriscore\n" + "3. Recherche par additif\n"
-				+ "4. Afficher le Top Produit\n" +  "5. Quitter\n");
+				+ "4. Afficher le Top Produit\n" + "5. Quitter\n");
 
 		int choix = choixNumeroMenu(5);
 
@@ -64,18 +75,19 @@ public class Menu {
 		case 1:
 			menuRechercheProduit();
 			break;
-			
+
 		case 2:
 			menuRechercheNutriscore();
 			break;
-			
-		case 3;
-		
+
+		case 3:
+			menuRechercheAdditif();
+			break;
 
 		case 4:
 			menuTopProduits();
 			break;
-			
+
 		case 5:
 			System.out.println("Au revoir!");
 			break;
@@ -84,29 +96,35 @@ public class Menu {
 	}
 
 	public void menuTopProduits() {
-		
+
 		System.out.println("Combien voulez vous afficher de produit?");
 		int nombre = entree.nextInt();
-		
+
 		entree.nextLine();
 		List<Produit> produits = controller.obtenirListeLimiteeDeProduits(nombre);
 		afficherListeProduits(produits);
 		menuSelection(produits);
 	}
-	
+
+	public void menuRechercheAdditif() {
+
+		List<Additif> additifs = controller.obtenirListeAdditifs();
+		afficherListeAdditifs(additifs);
+		menuSelectionAdditif(additifs);
+	}
+
 	public void menuRechercheNutriscore() {
-		
-		
+
 		String nutriscore = "";
 		System.out.println("Veuillez saisir un nutriscore");
 		nutriscore = entree.nextLine();
-		
+
 		List<Produit> produits = controller.obtenirListeProduitsParNutriscore(nutriscore);
 		afficherListeProduits(produits);
-		
+
 		menuSelection(produits);
 	}
-	
+
 	public void menuRechercheProduit() {
 
 		String nom = "";
@@ -120,7 +138,7 @@ public class Menu {
 		if (produits.size() > 0) {
 			menuSelection(produits);
 		}
-		
+
 		else {
 			System.out.println("Le produit recherché n'a pas été trouvé dans la base de donnée");
 
@@ -135,8 +153,31 @@ public class Menu {
 			}
 		}
 	}
-	
-    public void menuSelection(List<Produit> produits) {
+
+	public void menuSelectionAdditif(List<Additif> additifs) {
+		if (confirmation("\nSéléctionner un additif")) {
+
+			int choixNumero = choixNumeroMenu(additifs.size());
+			
+			Additif additif = additifs.get(choixNumero - 1);
+		
+			List<Produit> produits = controller.obtenirListeProduitsParAdditif(additif.getCode());
+			if (produits.size() == 0) {
+				System.out.println("Il n'y a pas de produit contenant cet additif");
+
+				if (confirmation("Voulez vous en selectionner un autre")) {
+					menuSelectionAdditif(additifs);
+				} else {
+					afficherMenuPrincipal();
+				}
+			} else {
+				afficherListeProduits(produits);
+				menuSelection(produits);
+			}
+		}
+	}
+
+	public void menuSelection(List<Produit> produits) {
 		if (confirmation("\nSéléctionner un produit")) {
 
 			int choixNumero = choixNumeroMenu(produits.size());
@@ -153,8 +194,8 @@ public class Menu {
 		} else {
 			afficherMenuPrincipal();
 		}
-    }
-    
+	}
+
 	public void menuEdition(Produit produit) {
 		System.out.println("1. Modification\n2. Suppresion");
 
