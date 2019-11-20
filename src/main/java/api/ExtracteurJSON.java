@@ -13,7 +13,12 @@ import model.Produit;
  * 
  */
 public class ExtracteurJSON {
-
+	
+	/**
+	 * Convertir un JSONObject en un objet produit
+	 * @param produitJsonObject Le JSONObject à convertir
+	 * @return Un Objet Produit
+	 */
 	public static Produit extraireProduit(JSONObject produitJsonObject) {
 		Produit produit = null;
 
@@ -47,7 +52,12 @@ public class ExtracteurJSON {
 		return produit;
 
 	}
-
+	
+	/**
+	 * Convertir un JSONArray en une liste de produits
+	 * @param produitsJsonArray Le JSONArray à convertir
+	 * @return Une ArrayList d' objets Produit
+	 */
 	public static List<Produit> extraireListeProduits(JSONArray produitsJsonArray) {
 		List<Produit> produits = new ArrayList<>();
 
@@ -62,7 +72,12 @@ public class ExtracteurJSON {
 		}
 		return produits;
 	}
-
+	
+	/**
+	 * Convertir un JSONObject en objet additif
+	 * @param additifJsonObject Le JSONObject à convertir
+	 * @return Un objet Additif
+	 */
 	public static Additif extraireAdditif(JSONObject additifJsonObject) {
 		Additif additif = null;
 		String id = additifJsonObject.getString("id");
@@ -83,6 +98,11 @@ public class ExtracteurJSON {
 		return additif;
 	}
 
+	/**
+	 * Convertir un JSONArray en une liste d'additifs
+	 * @param additifsJsonArray Le JSONArray à convertir
+	 * @return Une ArrayList d'objets Additif
+	 */
 	public static List<Additif> extraireListeAdditifs(JSONArray additifsJsonArray) {
 		List<Additif> additifs = new ArrayList<>();
 
