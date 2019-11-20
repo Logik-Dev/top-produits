@@ -16,11 +16,15 @@ import model.Produit;
  *
  */
 public class RequetesAPI {
-
+	
+	/**
+	 * Obtenir la liste des additifs depuis l'API 
+	 * @return Une ArrayList d'objets Additif
+	 */
 	public static List<Additif> obtenirListeAdditifs() {
 
 		JSONArray additifsJsonArray = null;
-
+		
 		try {
 			URL additifsURL = new URL("https://fr.openfoodfacts.org/additives.json");
 			String additifsString = IOUtils.toString(additifsURL, Charset.forName("UTF-8"));
@@ -35,6 +39,11 @@ public class RequetesAPI {
 		return ExtracteurJSON.extraireListeAdditifs(additifsJsonArray);
 	}
 
+	/**
+	 * Rechecher un produit sur l'API
+	 * @param nom Le nom du produit à rechercher
+	 * @return Une ArrayList d'objets Produit correspondant à la recherche
+	 */
 	public static List<Produit> rechercherProduitsParNom(String nom) {
 
 		String urlString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + nom
@@ -57,6 +66,10 @@ public class RequetesAPI {
 
 	}
 
+	/**
+	 * Obtenir la liste des produits le plus populaires depuis L'API
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public static List<Produit> obtenirListeTopProduits() {
 
 		JSONArray produitsJsonArray = null;
