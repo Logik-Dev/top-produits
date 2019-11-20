@@ -26,7 +26,7 @@ public class Menu {
 			System.out.println("\nEntrez le numéro de votre choix :");
 
 			while (!entree.hasNextInt()) {
-				System.out.println("Merci d'entrer un chiffre entre 1 et " + max);
+				System.out.println("\nMerci d'entrer un chiffre entre 1 et " + max);
 				entree.next();
 			}
 
@@ -59,7 +59,14 @@ public class Menu {
 	}
 
 	public void afficherMenuPrincipal() {
-
+		
+		try {
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("\n\t\t\t\t\t\t\tTOP PRODUITS\n\n"
 				+ "Cette application vous permet de rechercher un produit, ses additifs et son nutriscore "
 				+ "parmi une liste de produit les plus populaires du moment.\n"
