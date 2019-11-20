@@ -8,9 +8,9 @@ package jdbc;
  */
 public class Parametres {
 	
-	private static String user     = "cedric";
-	private static String password = "changeme";
-	private static String url		= "jdbc:mysql://localhost:3306/top-produits";
+	private static String user     = "";
+	private static String password = "";
+	private static String url      = "";
 	
 	public static String getUser() {
 		return user;
