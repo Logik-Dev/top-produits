@@ -61,7 +61,7 @@ public class Menu {
 	public void afficherMenuPrincipal() {
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1500);
 		}
 		catch (InterruptedException e) {
 			e.printStackTrace();
@@ -207,8 +207,11 @@ public class Menu {
 			int choixNumero = choixNumeroMenu(produits.size());
 
 			Produit produit = produits.get(choixNumero - 1);
+			List<String> codes = controller.obtenirCodesAdditifsParIds(produit.getAdditifs());
+			
 			System.out.println(produit);
-
+			System.out.println("- additifs: " + codes);
+			
 			if (controller.obtenirProduitParNom(produit.getNom()) == null) {
 
 				if (confirmation("\nAjouter le produit")) {
