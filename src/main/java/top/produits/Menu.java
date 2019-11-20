@@ -145,6 +145,7 @@ public class Menu {
 			if (confirmation("Voulez vous faire une recherche étendue")) {
 				produits = RequetesAPI.rechercherProduitsParNom(nom);
 				afficherListeProduits(produits);
+				menuSelection(produits);
 
 				if (produits.size() == 0) {
 					System.out.println("Le produit n'est pas référencé\n\n\n\n");
@@ -155,22 +156,19 @@ public class Menu {
 	}
 
 	public void menuSelectionAdditif(List<Additif> additifs) {
-		if (confirmation("\nSéléctionner un additif")) {
+		while (confirmation("\nSéléctionner un additif")) {
 
 			int choixNumero = choixNumeroMenu(additifs.size());
-			
+
 			Additif additif = additifs.get(choixNumero - 1);
-		
+
 			List<Produit> produits = controller.obtenirListeProduitsParAdditif(additif.getCode());
+			
 			if (produits.size() == 0) {
 				System.out.println("Il n'y a pas de produit contenant cet additif");
 
-				if (confirmation("Voulez vous en selectionner un autre")) {
-					menuSelectionAdditif(additifs);
-				} else {
-					afficherMenuPrincipal();
-				}
-			} else {
+			} 
+			else {
 				afficherListeProduits(produits);
 				menuSelection(produits);
 			}
