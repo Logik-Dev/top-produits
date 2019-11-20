@@ -52,5 +52,20 @@ L'utilisateur peut décider d'afficher le nombre de produit qu'il souhaite voir 
 ### 5. Quitter
 L'utilisateur peut quitter l'application en faisant ce choix.
 
+## Technologies utilisées
+---
+Languages de programmation :
+- JAVA Version 11
+- mySQL Version 8
 
+Dépendances :
+- mySQL Connector/J : mysql-connector-java-8.0.18.jar
+- Appache Commons IO : commons-io-2.6.jar
+- JSON in Java : json-20190722.jar
+
+## Base de données
+---
+### Structures MCD
+
+![alt text](/mcd.jpg)
 
