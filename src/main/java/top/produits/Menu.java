@@ -193,7 +193,7 @@ public class Menu {
 
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
 
-		if (produits.isEmpty()) {
+		if (!produits.isEmpty()) {
 			menuSelectionProduit(produits);
 		}
 
@@ -291,9 +291,9 @@ public class Menu {
 	 * @param produit Le produit à éditer
 	 */
 	public void menuEdition(Produit produit) {
-		System.out.println("1. Modification\n2. Suppression");
+		System.out.println("1. Modification\n2. Suppression\n3. Revenir au menu principal");
 
-		int choixNum = choixNumeroMenu(2);
+		int choixNum = choixNumeroMenu(3);
 
 		if (choixNum == 1) {
 			String valeur = "";
@@ -322,9 +322,12 @@ public class Menu {
 			System.out.println("Produit modifié\n");
 			afficherMenuPrincipal();
 
-		} else {
+		} else if (choixNum == 2) {
 			controller.supprimerProduit(produit);
 			System.out.println("Produit supprimé\n");
+			afficherMenuPrincipal();
+		
+		}else {
 			afficherMenuPrincipal();
 		}
 	}
