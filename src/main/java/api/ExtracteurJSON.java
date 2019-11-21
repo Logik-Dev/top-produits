@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import model.Additif;
 import model.Produit;
-import top.produits.Controller;
 
 /**
  * Transforme des données au format JSON en objets utilisables
@@ -60,16 +59,15 @@ public class ExtracteurJSON {
 	 * @param produitsJsonArray Le JSONArray à convertir
 	 * @return Une ArrayList d' objets Produit
 	 */
-	public static List<Produit> extraireListeProduits(JSONArray produitsJsonArray) {
+	public static List<Produit> extraireListeProduits(JSONArray produitsJsonArray, List<Produit> produitsDejaPresent) {
 		List<Produit> produits = new ArrayList<>();
-		List<Produit> produitsDansDB = new Controller().obtenirListeDeToutLesProduits();
 		
 		for (Object produitObject : produitsJsonArray) {
 			JSONObject produitJsonObject = (JSONObject) produitObject;
 
 			Produit produit = extraireProduit(produitJsonObject);
 
-			if (!produits.contains(produit) && produit != null && !produitsDansDB.contains(produit)) {
+			if (!produits.contains(produit) && produit != null && !produitsDejaPresent.contains(produit)) {
 					produits.add(produit);				
 			}
 		}

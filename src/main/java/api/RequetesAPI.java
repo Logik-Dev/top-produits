@@ -2,6 +2,7 @@ package api;
 
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -44,7 +45,7 @@ public class RequetesAPI {
 	 * @param nom Le nom du produit à rechercher
 	 * @return Une ArrayList d'objets Produit correspondant à la recherche
 	 */
-	public static List<Produit> rechercherProduitsParNom(String nom) {
+	public static List<Produit> rechercherProduitsParNom(String nom, List<Produit> produitsDejaPresent) {
 
 		String urlString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + nom
 				+ "&search_simple=1&action=process&json=1&page_size=1000";
@@ -62,7 +63,7 @@ public class RequetesAPI {
 			System.out.println("Impossible d'obtenir la liste de produits depuis l'API.");
 		}
 
-		return ExtracteurJSON.extraireListeProduits(produitsJsonArray);
+		return ExtracteurJSON.extraireListeProduits(produitsJsonArray, produitsDejaPresent);
 
 	}
 
@@ -86,7 +87,7 @@ public class RequetesAPI {
 			System.out.println("Impossible d'obtenir la liste de produits depuis l'API.");
 		}
 
-		return ExtracteurJSON.extraireListeProduits(produitsJsonArray);
+		return ExtracteurJSON.extraireListeProduits(produitsJsonArray, new ArrayList<Produit>());
 
 	}
 

@@ -42,3 +42,13 @@ application {
     // Define the main class for the application
     mainClassName = 'top.produits.App'
 }
+
+jar {
+    manifest {
+        attributes "Main-Class": "top.produits.App"
+    }
+ 
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

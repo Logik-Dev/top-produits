@@ -3,6 +3,8 @@ package top.produits;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import api.RequetesAPI;
 import jdbc.RequetesDB;
 import jdbc.Session;
 import model.Additif;
@@ -18,7 +20,16 @@ public class Controller {
 
 	private Session session = new Session();
 	private final String ERREUR_LIST = "Impossible d'obtenir la liste de produits.";
+	
+	public void initialiserLesTables() {
+		if(obtenirListeAdditifs() == null || obtenirListeAdditifs().size() == 0) {
+			sauvegarderListeAdditif(obtenirAdditifsAPI());
+		}
+		if(obtenirListeDeToutLesProduits() == null || obtenirListeDeToutLesProduits().size() == 0) {
+			sauvegarderListeProduits(obtenirTopProduitsAPI());
+		}
 
+	}
 	/**
 	 * Sauvegarder un additif en base de donnée
 	 * 
@@ -95,7 +106,20 @@ public class Controller {
 			System.out.println("Impossible de sauvegarder la liste de produits.");
 		}
 	}
-
+	
+	public List<Produit> obtenirProduitsParNomAPI(String nom){
+		List<Produit> produitsDejaPresent = obtenirListeDeToutLesProduits();
+		return RequetesAPI.rechercherProduitsParNom(nom, produitsDejaPresent);
+	}
+	
+	public List<Produit> obtenirTopProduitsAPI(){
+		return RequetesAPI.obtenirListeTopProduits();
+	}
+	
+	public List<Additif> obtenirAdditifsAPI(){
+		return RequetesAPI.obtenirListeAdditifs();
+	}
+	
 	/**
 	 * Obtenir la liste de tout les produits en base de donnée
 	 * 

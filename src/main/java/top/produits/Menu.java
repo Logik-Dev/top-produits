@@ -2,7 +2,6 @@ package top.produits;
 
 import java.util.List;
 import java.util.Scanner;
-import api.RequetesAPI;
 import model.Additif;
 import model.Produit;
 
@@ -202,7 +201,7 @@ public class Menu {
 			System.out.println("Le produit recherché n'a pas été trouvé dans la base de donnée !");
 
 			if (confirmation("Voulez vous faire une recherche étendue")) {
-				produits = RequetesAPI.rechercherProduitsParNom(nom);
+				produits = controller.obtenirProduitsParNomAPI(nom);
 
 				if (produits.size() == 0) {
 					System.out.println("Le produit n'est pas référencé\n");
