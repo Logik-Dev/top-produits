@@ -11,7 +11,7 @@ import model.Additif;
 import model.Produit;
 
 /**
- * Classe qui fait le lien entre la base de donnée et les actions utilisateur
+ * Classe qui fait le lien entre l'API, la base de donnée et les actions utilisateur
  * 
  * @author Elodie, Bastien, Cédric
  * 
@@ -21,7 +21,12 @@ public class Controller {
 	private Session session = new Session();
 	private final String ERREUR_LIST = "Impossible d'obtenir la liste de produits.";
 	
+	/**
+	 * Remplir les tables si elles sont vides
+	 */
 	public void initialiserLesTables() {
+		System.out.println("Merci de patienter pendant l'initialisation des tables de la base de donnée...");
+		
 		if(obtenirListeAdditifs() == null || obtenirListeAdditifs().size() == 0) {
 			sauvegarderListeAdditif(obtenirAdditifsAPI());
 		}
@@ -107,15 +112,28 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Obtenir une liste de produit par nom depuis l'API
+	 * @param nom Le nom du produit recherché
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirProduitsParNomAPI(String nom){
 		List<Produit> produitsDejaPresent = obtenirListeDeToutLesProduits();
 		return RequetesAPI.rechercherProduitsParNom(nom, produitsDejaPresent);
 	}
 	
+	/**
+	 * Obtenir la liste des produits populaires depuis l'API
+	 * @return Une ArrayList d'objets Produit
+	 */
 	public List<Produit> obtenirTopProduitsAPI(){
 		return RequetesAPI.obtenirListeTopProduits();
 	}
 	
+	/**
+	 * Obtenir la liste des additifs depuis l'API
+	 * @return Une ArrayList d'objets Additif
+	 */
 	public List<Additif> obtenirAdditifsAPI(){
 		return RequetesAPI.obtenirListeAdditifs();
 	}
