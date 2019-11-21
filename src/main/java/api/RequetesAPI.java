@@ -49,7 +49,7 @@ public class RequetesAPI {
 
 		String urlString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + nom
 				+ "&search_simple=1&action=process&json=1&page_size=1000";
-		URL url = null;
+		URL url;
 		JSONArray produitsJsonArray = null;
 
 		try {

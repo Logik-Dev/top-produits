@@ -1,5 +1,9 @@
 package jdbc;
-
+/**
+ * Classe contenant les paramètres de connexion jdbc
+ * @author Elodie, Bastien, Cédric
+ *
+ */
 public class Parametres {
 	
 	private static String user     = "cedric";

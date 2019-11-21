@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Scanner;
 import model.Additif;
 import model.Produit;
-
+/**
+ * Classe de gestion de l'inteface utilisateur
+ * @author Elodie, Cédric, Bastien
+ *
+ */
 public class Menu {
 
 	private Scanner entree = new Scanner(System.in);
@@ -33,7 +37,7 @@ public class Menu {
 	 * @return Le chiffre choisi par l'uilisateur
 	 */
 	public int choixNumeroMenu(int max) {
-		int choix = 0;
+		int choix;
 		do {
 			System.out.print(SAISIR_NOMBRE_MESSAGE + max + " : ");
 
@@ -130,7 +134,7 @@ public class Menu {
 	 */
 	public void menuTopProduits() {
 
-		int limit = 0;
+		int limit;
 
 		do {
 			System.out.print("Combien voulez vous afficher de produits ? : ");
@@ -166,7 +170,7 @@ public class Menu {
 	 */
 	public void menuRechercheNutriscore() {
 
-		String nutriscore = "";
+		String nutriscore;
 		System.out.print("Entrez un nutriscore (Entrer pour ignorer) : ");
 		nutriscore = entree.nextLine();
 
@@ -186,7 +190,7 @@ public class Menu {
 	 */
 	public void menuRechercheProduit() {
 
-		String nom = "";
+		String nom;
 
 		System.out.print("\nVeuillez saisir le nom du produit à rechercher : ");
 		nom = entree.nextLine();
@@ -296,7 +300,7 @@ public class Menu {
 		int choixNum = choixNumeroMenu(3);
 
 		if (choixNum == 1) {
-			String valeur = "";
+			String valeur;
 			System.out.print("Entrez un nom (Entrer pour ignorer) : ");
 			valeur = entree.nextLine();
 			if (!valeur.isEmpty()) {

@@ -3,7 +3,7 @@ package model;
 /**
  * Classe pour représenter un additif
  * 
- * @author Elodie,  Bastien, Cédric
+ * @author Elodie, Bastien, Cédric
  *
  */
 

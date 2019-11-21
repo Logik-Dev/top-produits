@@ -1,5 +1,9 @@
 package top.produits;
-
+/**
+ * Point d'entrée de l'application
+ * @author Elodie, Bastien, Cédric
+ *
+ */
 public class App {
 	
 	private static Menu menu = new Menu();

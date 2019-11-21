@@ -12,7 +12,7 @@ import model.Produit;
 
 
 /**
- * classe permettant de définir les requètes vers la base de donnée. Elles utilisent une connexion préalablement créée.
+ * Classe permettant de définir les requètes vers la base de donnée. Elles utilisent une connexion préalablement créée.
  * 
  * @author Cédric, Bastien, Elodie
  *
