@@ -36,7 +36,7 @@ public class ExtracteurJSON {
 		}
 		Character nutriscore = null;
 		JSONArray additifsJsonArray = produitJsonObject.getJSONArray("additives_tags");
-		List<String> additifs = new ArrayList<String>();
+		List<String> additifs = new ArrayList<>();
 
 		for (Object additifJson : additifsJsonArray) {
 			String additif = String.valueOf(additifJson);

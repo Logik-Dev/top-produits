@@ -1,7 +1,7 @@
 package api;
 
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -28,7 +28,7 @@ public class RequetesAPI {
 		
 		try {
 			URL additifsURL = new URL("https://fr.openfoodfacts.org/additives.json");
-			String additifsString = IOUtils.toString(additifsURL, Charset.forName("UTF-8"));
+			String additifsString = IOUtils.toString(additifsURL, StandardCharsets.UTF_8);
 			additifsJsonArray = new JSONObject(additifsString).getJSONArray("tags");
 		}
 
@@ -54,7 +54,7 @@ public class RequetesAPI {
 
 		try {
 			url = new URL(urlString);
-			String produitsString = IOUtils.toString(url, Charset.forName("UTF-8"));
+			String produitsString = IOUtils.toString(url, StandardCharsets.UTF_8);
 			produitsJsonArray = new JSONObject(produitsString).getJSONArray("products");
 		}
 
@@ -78,7 +78,7 @@ public class RequetesAPI {
 		try {
 			URL url = new URL(
 					"https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1&page_size=1000&sort_by=unique_scans_n");
-			String produitsString = IOUtils.toString(url, Charset.forName("UTF-8"));
+			String produitsString = IOUtils.toString(url, StandardCharsets.UTF_8);
 			produitsJsonArray = new JSONObject(produitsString).getJSONArray("products");
 		}
 

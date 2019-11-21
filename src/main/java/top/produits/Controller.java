@@ -27,10 +27,10 @@ public class Controller {
 	public void initialiserLesTables() {
 		System.out.println("Merci de patienter pendant l'initialisation des tables de la base de donnée...");
 		
-		if(obtenirListeAdditifs() == null || obtenirListeAdditifs().size() == 0) {
+		if(obtenirListeAdditifs() == null || obtenirListeAdditifs().isEmpty()) {
 			sauvegarderListeAdditif(obtenirAdditifsAPI());
 		}
-		if(obtenirListeDeToutLesProduits() == null || obtenirListeDeToutLesProduits().size() == 0) {
+		if(obtenirListeDeToutLesProduits() == null || obtenirListeDeToutLesProduits().isEmpty()) {
 			sauvegarderListeProduits(obtenirTopProduitsAPI());
 		}
 
@@ -84,7 +84,7 @@ public class Controller {
 		}
 
 		try {
-			if (produit.getAdditifs().size() > 0) {
+			if (!produit.getAdditifs().isEmpty()) {
 				for (String additif : produit.getAdditifs()) {
 					RequetesDB.sauvegarderAdditifsProduit(session.getConnection(), additif, produit.getId());
 				}

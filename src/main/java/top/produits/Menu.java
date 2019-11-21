@@ -193,7 +193,7 @@ public class Menu {
 
 		List<Produit> produits = controller.obtenirListeProduitsParNom(nom);
 
-		if (produits.size() > 0) {
+		if (produits.isEmpty()) {
 			menuSelectionProduit(produits);
 		}
 
@@ -203,7 +203,7 @@ public class Menu {
 			if (confirmation("Voulez vous faire une recherche étendue")) {
 				produits = controller.obtenirProduitsParNomAPI(nom);
 
-				if (produits.size() == 0) {
+				if (produits.isEmpty()) {
 					System.out.println("Le produit n'est pas référencé\n");
 					afficherMenuPrincipal();
 				} else {
@@ -230,7 +230,7 @@ public class Menu {
 
 			List<Produit> produits = controller.obtenirListeProduitsParAdditif(additif.getCode());
 
-			if (produits.size() == 0) {
+			if (produits.isEmpty()) {
 				System.out.println("Il n'y a pas de produit contenant cet additif");
 
 			} else {
