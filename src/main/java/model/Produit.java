@@ -4,9 +4,7 @@ import java.util.List;
 
 /**
  * Classe qui représente un produit
- * 
  * @author Elodie, Bastien, Cédric
- *
  */
 	public class Produit {
 		

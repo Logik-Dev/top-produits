@@ -1,10 +1,8 @@
 package model;
 
 /**
- * Classe pour représenter un additif
- * 
+ * Classe qui représente un additif
  * @author Elodie, Bastien, Cédric
- *
  */
 
 public class Additif {

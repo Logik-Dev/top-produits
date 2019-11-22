@@ -43,6 +43,7 @@ public class RequetesAPI {
 	/**
 	 * Rechecher un produit sur l'API
 	 * @param nom Le nom du produit à rechercher
+	 * @param produitsDejaPresent La liste des produits déja présent en base de donnée
 	 * @return Une ArrayList d'objets Produit correspondant à la recherche
 	 */
 	public static List<Produit> rechercherProduitsParNom(String nom, List<Produit> produitsDejaPresent) {

@@ -57,6 +57,7 @@ public class ExtracteurJSON {
 	/**
 	 * Convertir un JSONArray en une liste de produits
 	 * @param produitsJsonArray Le JSONArray à convertir
+	 * @param produitsDejaPresent La liste des produits déjà présent dans la base de donnée
 	 * @return Une ArrayList d' objets Produit
 	 */
 	public static List<Produit> extraireListeProduits(JSONArray produitsJsonArray, List<Produit> produitsDejaPresent) {

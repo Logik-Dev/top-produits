@@ -11,7 +11,7 @@ import model.Additif;
 import model.Produit;
 
 /**
- * Classe qui fait le lien entre l'API, la base de donnée et les actions utilisateur
+ * Classe qui fait le lien entre l'API, la base de donnée et les actions de l'utilisateur
  * 
  * @author Elodie, Bastien, Cédric
  * 
@@ -36,9 +36,8 @@ public class Controller {
 
 	}
 	/**
-	 * Sauvegarder un additif en base de donnée
-	 * 
-	 * @param additif L'additif à sauvegarder
+	 * Enregistrer un additif en base de donnée
+	 * @param additif Un objet Additif à enregistrer
 	 */
 	public void sauvegarderAdditif(Additif additif) {
 
@@ -52,8 +51,7 @@ public class Controller {
 	}
 
 	/**
-	 * Sauvegarder une liste d'additifs en base de donnée
-	 * 
+	 * Enregistrer une liste d'additifs en base de donnée
 	 * @param additifs Une ArrayList d'objets Additif à sauvegarder
 	 */
 	public void sauvegarderListeAdditif(List<Additif> additifs) {
@@ -70,8 +68,7 @@ public class Controller {
 	}
 
 	/**
-	 * Sauvegarder un produit en base de donnée
-	 * 
+	 * Enregister un produit en base de donnée
 	 * @param produit L'objet Produit à sauvegarder
 	 */
 	public void sauvegarderProduit(Produit produit) {
@@ -86,7 +83,7 @@ public class Controller {
 		try {
 			if (!produit.getAdditifs().isEmpty()) {
 				for (String additif : produit.getAdditifs()) {
-					RequetesDB.sauvegarderAdditifsProduit(session.getConnection(), additif, produit.getId());
+					RequetesDB.sauvegarderAdditifProduit(session.getConnection(), additif, produit.getId());
 				}
 			}
 		} catch (SQLException e) {
@@ -96,9 +93,8 @@ public class Controller {
 	}
 
 	/**
-	 * Sauvegarder une liste de produits en base de donnée
-	 * 
-	 * @param produits Une ArrayList d'objets Produit à sauvegarder
+	 * Enregistrer une liste de produits en base de donnée
+	 * @param produits Une ArrayList d'objets Produit à enregistrer
 	 */
 	public void sauvegarderListeProduits(List<Produit> produits) {
 
@@ -140,7 +136,6 @@ public class Controller {
 	
 	/**
 	 * Obtenir la liste de tout les produits en base de donnée
-	 * 
 	 * @return Une ArrayList d'objets Produit
 	 */
 	public List<Produit> obtenirListeDeToutLesProduits() {
@@ -156,8 +151,7 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir une liste limitée de produit depuis la base de donnée
-	 * 
+	 * Obtenir une liste limitée de produits depuis la base de donnée         
 	 * @param nombre Le nombre de produits souhaités
 	 * @return Une ArrayList d'objets Produit
 	 */
@@ -174,9 +168,8 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir une liste de produits correspondant au nutriscore choisi depuis la
-	 * base de donnée
-	 * 
+	 * Obtenir une liste de produits correspondant au nutriscore choisi 
+	 * depuis la base de donnée
 	 * @param nutriscore Le nutriscore choisi
 	 * @return Une ArrayList d'objet Produit
 	 */
@@ -193,8 +186,7 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir une liste de produits contenant le nom depuis la base de donnée
-	 * 
+	 * Obtenir une liste de produits contenant le nom fourni depuis base de donnée
 	 * @param nom Le nom à rechercher
 	 * @return Une ArrayList d'objets Produit
 	 */
@@ -211,9 +203,7 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir une liste de produits contenant l'additif fourni depuis la base de
-	 * donnée
-	 * 
+	 * Obtenir une liste de produits contenant l'additif fournis dans la base de donnée
 	 * @param codeAdditif Le code de l'additif
 	 * @return Une ArrayList d'objets Produit
 	 */
@@ -232,9 +222,8 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir une liste de codes additifs par Id depuis la base de donnée
-	 * 
-	 * @param ids
+	 * Obtenir une liste de codes additifs ayant les ids fournis dans la base de donnée
+	 * @param ids Une ArrayList d'objet String correspondant aux ids des additifs
 	 * @return une ArrayList de codes additifs par Id
 	 */
 	public List<String> obtenirCodesAdditifsParIds(List<String> ids) {
@@ -257,8 +246,7 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir la liste d'additifs depuis la base de donnée
-	 * 
+	 * Obtenir la liste des additifs en base de donnée
 	 * @return l'ArrayList liste d'additifs
 	 */
 	public List<Additif> obtenirListeAdditifs() {
@@ -266,7 +254,7 @@ public class Controller {
 		List<Additif> additifs = null;
 
 		try {
-			additifs = RequetesDB.obtenirListAdditifs(session.getConnection());
+			additifs = RequetesDB.obtenirListeAdditifs(session.getConnection());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Impossible d'obtenir la liste d'additifs");
@@ -275,8 +263,7 @@ public class Controller {
 	}
 
 	/**
-	 * Obtenir un produit par nom depuis la base de donnée
-	 * 
+	 * Rechercher un produit par nom dans la base de donnée
 	 * @param nom Le nom du produit recherché
 	 * @return Un objet Produit
 	 */
@@ -294,8 +281,7 @@ public class Controller {
 	}
 
 	/**
-	 * Modifier un produit en base de donnée
-	 * 
+	 * Modifier un produit de la base de donnée
 	 * @param produit Le nouvel objet Produit à enregistrer
 	 */
 	public void modifierProduit(Produit produit) {
@@ -310,8 +296,7 @@ public class Controller {
 	}
 
 	/**
-	 * Supprimer un produit dans la base de donnée
-	 * 
+	 * Supprimer un produit de la base de donnée
 	 * @param produit L'objet Produit à supprimer
 	 */
 	public void supprimerProduit(Produit produit) {

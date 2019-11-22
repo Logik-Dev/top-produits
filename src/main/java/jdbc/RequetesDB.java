@@ -12,21 +12,20 @@ import model.Produit;
 
 
 /**
- * Classe permettant de définir les requètes vers la base de donnée. Elles utilisent une connexion préalablement créée.
- * 
+ * Classe effectuant les requètes vers la base de donnée. 
+ * Elle nécécite une connexion préalablement créée.
  * @author Cédric, Bastien, Elodie
- *
  */
 public class RequetesDB {
 
-	// REQUETES CREATE
+	// CREATE
 
-/**
- * permet de sauvegarder les additifs dans la base de donnée.
- * @param connection
- * @param additif
- * @throws SQLException
- */
+   /**
+   * Enregistrer un additif dans la base de donnée.
+   * @param connection Un objet Connection
+   * @param additif L'objet Additif à enregistrer
+   * @throws SQLException
+    */
 	public static void sauvegarderAdditif(Connection connection, Additif additif) throws SQLException {
 
 		String requete = "INSERT INTO additif VALUES (?,?,?)";
@@ -43,9 +42,9 @@ public class RequetesDB {
 
 	
 	/**
-	 * permet de sauvegarder les produits dans la base de donnée.
-	 * @param connection
-	 * @param produit
+	 * Enregistrer un produit dans la base de donnée.
+	 * @param connection Un objet Connection
+	 * @param produit L' objet Produit à enregister
 	 * @throws SQLException
 	 */
 	public static void sauvegarderProduit(Connection connection, Produit produit) throws SQLException {
@@ -64,13 +63,13 @@ public class RequetesDB {
 
 	
 	/**
-	 * permet de sauvegarder les additifs d'un produit dans la base de donnée.
-	 * @param connection
-	 * @param additifId
-	 * @param produitId
+	 * Enregistrer un additif d'un produit dans la base de donnée.
+	 * @param connection Un objet Connnection
+	 * @param additifId L'id de l'additif
+	 * @param produitId L'id du produit
 	 * @throws SQLException
 	 */
-	public static void sauvegarderAdditifsProduit(Connection connection, String additifId, long produitId)
+	public static void sauvegarderAdditifProduit(Connection connection, String additifId, long produitId)
 			throws SQLException {
 
 		String requete = "INSERT INTO additifs_produits VALUES (?,?)";
@@ -84,15 +83,14 @@ public class RequetesDB {
 
 	}
 
-	
-	
-	// REQUETES READ
+		
+	// READ
 
 	/**
-	 * permet d'extraire une liste de produit de la base de donnée.
-	 * @param connection
-	 * @param result
-	 * @return produits
+	 * Extraire une liste de produits d'un objet ResultSet
+	 * @param connection Un objet Connection
+	 * @param result Un objet ResultSet contenant le résultat d'une requète
+	 * @return produits Une ArrayList d'objet Produit
 	 * @throws SQLException
 	 */
 	private static List<Produit> extraireListeProduits(Connection connection, ResultSet result) throws SQLException {
@@ -110,8 +108,14 @@ public class RequetesDB {
 
 		return produits;
 	}
-
-	public static List<Additif> obtenirListAdditifs(Connection connection) throws SQLException{
+	
+	/**
+	 * Obtenir la liste des additifs de la base de donnée
+	 * @param connection Un objet Connection
+	 * @return Une ArrayList d'objets Additif
+	 * @throws SQLException
+	 */
+	public static List<Additif> obtenirListeAdditifs(Connection connection) throws SQLException{
 		
 		String requete = "SELECT * FROM additif ";
 		PreparedStatement statement = connection.prepareStatement(requete);
@@ -129,6 +133,13 @@ public class RequetesDB {
 		return additifs;
 	}
 	
+	/**
+	 * Obtenir un additif de la base de donnée
+	 * @param connection Un objet Connection
+	 * @param idAdditif L'id de l'additif voulu
+	 * @return Un objet Additif
+	 * @throws SQLException
+	 */
 	public static Additif obtenirAdditifParId(Connection connection, String idAdditif) throws SQLException{
 		
 		String requete = "SELECT * FROM additif WHERE id = ?";
@@ -171,12 +182,11 @@ public class RequetesDB {
 
 		return additifsIds;
 	}
-	
-	
+		
     /**
-     * permet d'obtenir la liste des produits
-     * @param connection
-     * @return la méthode extraireListeProduits
+     * Obtenir la liste des produits présent en base de donnée
+     * @param connection Un objet Connection
+     * @return Une ArrayList d'objet Produit
      * @throws SQLException
      */
 	public static List<Produit> obtenirListeDesProduits(Connection connection) throws SQLException{
@@ -189,13 +199,12 @@ public class RequetesDB {
 		statement.close();
 		return produits;
 	}
-	
-	
+		
 	/**
-	 * permet d'obtenir une liste de produit par nutriscore recherché
-	 * @param connection
-	 * @param nutriscore
-	 * @return extraireListeProduits
+	 * Obtenir une liste de produits par nutriscore
+	 * @param connection Un objet Connection
+	 * @param nutriscore Le nutriscore des produits recherchés
+	 * @return Une ArrayList d'objets Produit
 	 * @throws SQLException
 	 */
 	public static List<Produit> rechercherProduitsParNutriscore(Connection connection, String nutriscore)
@@ -215,10 +224,10 @@ public class RequetesDB {
 	}
 
 	/**
-	 * permet d'obtenir une liste de produit par nom recherché
-	 * @param connection
-	 * @param nom
-	 * @return extraireListeProduits
+	 * Rechercher une liste de produit par nom
+	 * @param connection Un objet Connection
+	 * @param nom Le nom recherché
+	 * @return Une ArrayList d'objets Produit
 	 * @throws SQLException
 	 */
 	public static List<Produit> rechercherProduitsParNom(Connection connection, String nom) throws SQLException {
@@ -237,12 +246,11 @@ public class RequetesDB {
 
 	}
 	
-
 	/**
-	 * permet d'obtenir une liste de produits par additif recherché
-	 * @param connection
-	 * @param code
-	 * @return extraireListeProduits
+	 * Rechercher une liste de produit par additif
+	 * @param connection Un objet Connection
+	 * @param code Le code de l'additif
+	 * @return Une ArrayList d'objets Produit
 	 * @throws SQLException
 	 */
 	public static List<Produit> rechercherProduitsParAdditif(Connection connection, String code) throws SQLException {
@@ -261,13 +269,12 @@ public class RequetesDB {
 		return produits;
 
 	}
-
 	
 	/**
-	 * permet d'obtenir une liste des produits les plus vendus par nombre défini
-	 * @param connection
-	 * @param nombre
-	 * @return extraireListeProduits
+	 * Obtenir une liste limitée de produits
+	 * @param connection Un objet Connection
+	 * @param nombre La nombre d'élément de la liste
+	 * @return Une ArrayList d'objets Produit
 	 * @throws SQLException
 	 */
 	public static List<Produit> rechercherProduitsParNombreDefini(Connection connection, int nombre)
@@ -285,12 +292,11 @@ public class RequetesDB {
 		return produits;
 	}
 	
-	
 	/**
-	 * permet de selectionner un produit par un nom recherché
-	 * @param connection
-	 * @param nom
-	 * @return produit
+	 * Rechercher un produit par nom
+	 * @param connection Un objet Connection
+	 * @param nom Le nom du produit recherché
+	 * @return Un objet Produit
 	 * @throws SQLException
 	 */
 	public static Produit selectionnerProduitParNom(Connection connection, String nom) throws SQLException {
@@ -316,13 +322,13 @@ public class RequetesDB {
 		return produit;
 	}
 
-	// REQUETE UPDATE
-
 	
+	// UPDATE
+
 	/**
-	 * permet de modifier un produit dans la base de donnée
-	 * @param connection
-	 * @param produitModifie
+	 * Modifier un produit de la base de donnée
+	 * @param connection Un objet Connection
+	 * @param produitModifie L'objet Produit modifié
 	 * @throws SQLException
 	 */
 	public static void modifierProduit(Connection connection, Produit produitModifie) throws SQLException {
@@ -339,13 +345,13 @@ public class RequetesDB {
 		statement.close();
 	}
 
-	// REQUETE DELETE
-
+	
+	// DELETE
 	
 	/**
-	 * permet de supprimer un produit de la base de donnée
-	 * @param connection
-	 * @param produit
+	 * Supprimer un produit de la base de donnée
+	 * @param connection Un objet Connection
+	 * @param produit L'objet Produit à supprimer
 	 * @throws SQLException
 	 */
 	public static void supprimerProduit(Connection connection, Produit produit) throws SQLException {

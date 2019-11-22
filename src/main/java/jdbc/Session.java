@@ -5,18 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Initialise une connexion vers la base à partir des informations se trouvant dans la classe Parametres.
- * 
+ * Initialise une connexion mysql à partir des informations se trouvant dans la classe Parametres.
  * @author Elodie, Cedric , Bastien
- *
  */
 public class Session {
 
 	private Connection connection;
 
-	/**
-	 * Initialise la connection à la création.
-	 */
 	public Session() {
 		try {
 			initConnection();
@@ -25,19 +20,14 @@ public class Session {
 			System.out.println("connection à la base impossible");
 		}
 	}
-	
-	/**
-	 * Retourne la connection déjà initialisée.
-	 * @return la connection déjà initialisée.
-	 */
+
 	public Connection getConnection() {
 		return connection;
 	}
 
 	
 	/**
-	 * Initialise la connection.
-	 * 
+	 * Initialise la connection. 
 	 * @throws SQLException
 	 */
 	private void initConnection() throws SQLException {
